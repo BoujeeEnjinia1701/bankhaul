@@ -1,0 +1,20 @@
+cff-version: 1.2.0
+message: "If you use or build on this design, please cite it as below."
+type: software
+title: "BankHaul"
+abstract: "Sets and hauls nets from the bank on a rope loop so fishers stop wading into crocodile water."
+authors:
+  - given-names: Amish
+    family-names: Chadha
+    affiliation: Design Molecule
+    orcid: "https://orcid.org/0009-0000-8079-7141"
+repository-code: "https://github.com/BoujeeEnjinia1701/bankhaul"
+url: "https://designmolecule.com"
+license: CERN-OHL-S-2.0
+keywords:
+  - open-hardware
+  - inland-fisheries
+  - human-wildlife-conflict
+  - crocodile-safety
+  - rope-systems
+  - food-security
