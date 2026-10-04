@@ -1,65 +1,33 @@
 # Review note: BankHaul
 
-## Session 2026-10-03: round 2 requirement decisions applied
+## 2026-10-03: Amish's requirement decisions carried out
 
-Run under Amish's instruction of 2026-10-03: "i approve all of the 47 recommendations provided by you. Execute them." Both BankHaul decisions were taken as recommended, exactly as worded, and carried into the design at TRL 3 scope only. Nothing was committed or pushed.
+Amish, 2026-10-03: "i agree with all the 46 recommendations you provided. please proceed." For BankHaul that decides items 14 and 15 as recommended (14A and 15A). Recorded in `docs/decisions/0003-amish-requirement-decisions.md` (BKH-DDR-003) and `docs/06-design-decisions.md` (BKH-DEC-001 v0.2); open decisions are now none.
 
-### What was done
+**Changes made.**
 
-- `docs/decisions/0003-requirement-decisions-round2.md` (BKH-DDR-003): R5 option A and R8 option A, with their conditions.
-- `cad/src/model.py`: `embed_vsoft` 3,500 mm and `su_vane_min` 10 kPa added, and the derived 5,000 mm long-stake length. The model keeps the 2.5 m design case, so STEP, STL, the concept media and `media/model.glb` are unchanged.
-- `cad/src/sheets.py`: BKH-DWG-002 to Rev P3 (long stake note); the script now takes `bank`, `far` or `layout` to draw one sheet. `cad/src/build_plan_media.py`: BKH-DWG-102 notes give the long stake's cut length and paint ring.
-- `docs/04-calcs/sizing.py`, `results.csv`, `01-sizing.md` (BKH-CAL-001 v0.2): long-stake capacity, the weakest bed it covers, mass and cost.
-- `bom/bom.csv`: line 2 note (long stake 4,850 mm tube, 33.2 kg, about USD 12 more).
-- `docs/05-build-plan.md` (BKH-BLD-001 v0.2): hand vane reading before cutting the stake, the long stake, and the vane reading under the safety stop for driving the stake.
-- `docs/03-requirements.md` v0.3, `docs/02-concept.md` v0.3, `docs/06-design-decisions.md` v0.2, `project.yaml` (trl_evidence). `README.md` needed no change: none of its statements became false.
+- **14A, R5: far stake driven 3.5 m.** `cad/src/model.py` embedment 2,500 to 3,500 mm, so the stake is 5.0 m long overall (tube 4,850 mm); constructability checks pass (no overlaps, nothing floating); STEP and STL regenerated. `bom/bom.csv` line 2: USD 48 to USD 60 (same tube price per metre, about USD 12 a metre, for 1.0 m more), 33.2 kg. Build plan (BKH-BLD-001 v0.2) section 3.2 and step 6: cut 4,850 mm, paint ring 3,500 mm above the point, two people lift the stake upright, push and twist it down before driving; safety stop updated.
+- **15A, R8 restated.** `docs/03-requirements.md` (BKH-REQ-001 v0.3) quotes Amish: R8 now applies "parts under USD 80 per station" to a local-materials station costed from local prices with the co-design partner before the season pilot; the steel station built for the TRL 4 trials is costed and recorded but not held to that figure. No design change.
+- Calculation note BKH-CAL-001 v0.2 and `docs/04-calcs/sizing.py` re-run; `results.csv` updated. Precis BKH-PRC-001 v0.3 and README cost updated.
 
-### Results
+**New results.**
 
-*Requirement status, before and after.*
+| Requirement | Target | New result | Status |
+| --- | --- | --- | --- |
+| R5 | Holds 1.5 kN horizontal in soft mud (factor 2 taken as "holds") | Factor 2.03 in very soft mud (5 kPa, was 1.23); 4.05 in soft mud (10 kPa, was 2.46); bending 162 MPa at 1.5 kN, unchanged | Met on paper in both beds; TRL 4 pull test |
+| R8 (restated) | Local-materials station parts under USD 80, costed with the partner; steel trial station recorded | Steel trial station USD 394; local-materials station about USD 98 (first-order estimate) | Trial station accepted; local-materials figure not yet met on the estimate, settled by the partner's costing |
 
-| ID | Before | After |
-| --- | --- | --- |
-| R5 | Met in soft mud (factor 2.46); at risk in very soft mud (factor 1.23) | Met on paper: 2.46 in soft mud; 2.03 in very soft mud (5 kPa) with the 5.0 m stake driven 3.5 m |
-| R8 | Not met: USD 382 | Not met for the steel trial station: USD 382 (USD 394 with the long stake); a local-materials costing with the co-design partner before the season pilot gives the real figure |
-| Others | R1 to R4, R6, R7, R9 to R11 met on paper | Unchanged |
+**Cost and mass.** Value-engineering target: USD 1,800. Estimated cost of the constructable design: USD 404 (USD 1,396 under the target); station parts USD 394. Far stake 33.2 kg (6.4 kg more), still the heaviest part; station about 106 kg.
 
-Ten of eleven requirements are now met on paper (was nine, one at risk, one not met).
+**Pictures changed.** BKH-DWG-002 and BKH-DWG-003 at Rev P3 (BKH-DWG-001 bumped with the shared revision list, content unchanged); making sketch BKH-DWG-102 Rev P2; build plan steps 6, 7 and 8 redrawn; concept blueprint key figures (BKH-DWG-010) and concept media regenerated. The overview and joint pictures show the stake cut short and do not change. Appearance model: the detail view adds a red paint ring at the bed marking 3.5 m driven, since the deeper stake itself is below the bed and out of sight (appearance addition under Amish's decision of 2026-10-03). Scene files re-exported to `/home/claude/renders/bankhaul`; photoreal renders are re-made on Amish's Mac.
 
-- Heaviest lift at a very soft site: the 33.2 kg long stake (26.8 kg standard); station about 106 kg there (about 100 kg standard).
-- The 3.5 m embedment gives a factor of 2 down to a bed of 4.9 kPa; at 3 kPa it gives 1.22.
+**Safety.** Standing a 5.0 m, 33 kg stake upright from a boat is harder than a 4.0 m one; the build plan now has two people lift it and nobody drive it standing higher than the boat's seat. All other safety notes stand.
 
-### Cost
+**Cross-repo actions.** None.
 
-- Value-engineering target USD 1,800 (unchanged in `project.yaml`). Estimated cost of the constructable design USD 392 before and after for a standard site (station parts USD 382); USD 404 at a very soft site with the long stake (station parts USD 394).
+**Open decisions.** None. Nothing new needs Amish.
 
-### Decisions recorded
-
-- R5: option A, drive 3.5 m into very soft beds with a 5.0 m stake, the extra 1 m cut only where the vane test shows it is needed.
-- R8: option A, build the steel station for the TRL 4 trials and cost a local-materials station with the co-design partner before the season pilot.
-
-### New questions, proposed, awaiting Amish
-
-**Beds weaker than 4.9 kPa.**
-
-- *State:* the 5.0 m stake driven 3.5 m gives a factor of 2 on the 1.5 kN of R5 only down to a bed of 4.9 kPa. Very soft muds can be weaker; at 3 kPa the factor is 1.22. The vane reading now in the build plan will show such a bed, but the plan has no answer for it.
-- *Option A:* do not site a station where any vane reading down to 2.5 m is under 5 kPa. No cost or mass; some landing sites are excluded.
-- *Option B:* two long stakes 1 m apart, tied at the top with a bar carrying the collar, in such beds. Factor 2.19 at 3 kPa (estimate, with a 10 % group loss); about 33 kg more and a tie bar to design; two stakes to drive from the boat.
-- *Option C:* a float-and-mooring far end for such beds, the variant kept in BKH-DDR-001 item 2, designed at TRL 4.
-- **Recommendation: A** for the prototype and the TRL 4 trials, with C noted for the season pilot if the co-design partner's sites need it.
-
-### Photoreal renders
-
-- No re-render is needed: the renders show the 2.5 m design case, and the stake is drawn above the bed only, so its visible length does not change.
-
-### Safety concerns
-
-- The long stake is 33.2 kg and 5.0 m long, handled by two people from a boat held on two anchors with a lookout; the hand vane reading is taken from the boat under the same rules. Never wade.
-- The weak link, working distance and rated rigging are unchanged; the steel trial station keeps the rated hardware that carries the safety case.
-
-### Recommended next step
-
-- Amish decides the weak-bed question above (recommendation A). Then, when the phase allows TRL 4: read the trial site's bed with a hand vane, build one station, run the R4, R5 and R10 proof loads, and start the local-materials costing with the co-design partner.
+**Recommended next step.** The design is ready for TRL 4 when the phase allows: build the steel station, run the R4, R5 and R10 proof loads (CalRig or in place), and cost the local-materials station with the co-design partner for R8.
 
 ## Session 2026-10-03: TRL 3 (kit 1.7.0, /to-trl3 under Amish's pre-approvals)
 
@@ -172,3 +140,7 @@ Amish, 2026-10-03: "start with the first 14 repos from the list of 29 projects. 
 ## 2026-10-03: photoreal renders
 
 Rendered with Blender Cycles on Amish's Mac from `cad/src/product_model.py`; captioned with `.kit/photo_caption.py`; `media/card.png` and `media/social-preview.png` made with `.kit/cards.py`. Views: hero, exploded, detail. image_qc passes and `render.py --check` has no FAIL.
+
+## 2026-10-04: photoreal renders redone after the round-2 and round-3 decisions
+
+Views: hero, exploded, detail; cards regenerated; image_qc passes and `render.py --check` has no FAIL.

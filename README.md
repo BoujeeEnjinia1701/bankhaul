@@ -4,9 +4,11 @@
 
 ![TRL 3](https://img.shields.io/badge/TRL-3%20of%209-0F766E) ![Hardware: CERN-OHL-S-2.0](https://img.shields.io/badge/hardware-CERN--OHL--S--2.0-111827) ![Software: MIT](https://img.shields.io/badge/software-MIT-111827) [![REUSE compliant](https://github.com/BoujeeEnjinia1701/bankhaul/actions/workflows/reuse.yml/badge.svg)](https://github.com/BoujeeEnjinia1701/bankhaul/actions/workflows/reuse.yml)
 
-**Area:** Food and water security · **TRL:** 3 of 9 (proof of concept on paper, design constructable) · **Value-engineering target:** USD 1,800 (estimated prototype cost USD 392) · **Difficulty:** 2 of 5
+**Area:** Food and water security · **TRL:** 3 of 9 (proof of concept on paper, design constructable) · **Value-engineering target:** USD 1,800 (estimated prototype cost USD 404) · **Difficulty:** 2 of 5
 
 Sets and hauls nets from the bank on a rope loop so fishers stop wading into crocodile water.
+
+> CONCEPT, NOT FOR FABRICATION. BankHaul is a TRL 3 design on paper: it has not been built or tested.
 
 ## Concept rationale
 

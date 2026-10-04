@@ -82,7 +82,7 @@ outs = render_all(
                  "Weak link releases at 500 to 700 N; far stake load 1.4 kN at most",
                  "Bank station holds 3 kN: two 250 mm screw anchors, factor 2.1",
                  "Fisher works 5 m or more from the water; nobody wades",
-                 "Station parts about USD 382; heaviest lift 26.8 kg (far stake)",
+                 "Station parts about USD 394; far stake 5.0 m, 33.2 kg, driven 3.5 m",
                  "Layout shortened to 7 m in these views"],
     scale_figure=False, context=context, cut=False, web_model=False, flow=flow)
 

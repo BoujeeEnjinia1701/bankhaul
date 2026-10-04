@@ -6,7 +6,9 @@ the blocks); colours and material classes are added for the look. Appearance add
 model.py, recorded in docs/REVIEW.md: the loop cut short a little before the water in the hero and
 exploded views, the far stake shown above the bed only, the screw anchors shown with their rods,
 a net stacked on the table, and a posed 1.75 m mannequin standing beside the post (never between
-the camera and the station). CONCEPT, NOT FOR FABRICATION.
+the camera and the station). The far stake is 5.0 m long and driven 3.5 m (BKH-DDR-003, decided by
+Amish on 2026-10-03); its driven length is below the bed and out of sight, so the detail view shows
+the paint ring that marks 3.5 m driven, sitting at the bed. CONCEPT, NOT FOR FABRICATION.
 
     from product_model import product_parts
     for p in product_parts(): print(p["name"], p["group"], p["material"])
@@ -17,7 +19,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[2]
 sys.path[:0] = [str(ROOT / ".kit"), str(ROOT / "cad" / "src")]
 from build123d import Pos, Rot  # noqa: E402
-from model import PARAMS as P, build_components, context_shapes, bx  # noqa: E402
+from model import PARAMS as P, build_components, context_shapes, bx, derived, ztube  # noqa: E402
 
 TITLE = "BankHaul: bank station that sets and hauls a net on a rope loop"
 S = P["short"]["span"]
@@ -31,7 +33,8 @@ RENDER_VIEWS = [
      "note": "Exploded bank station from the front right and above (about 26 deg elevation): post weldment, "
              "jam cleats, near block and shackle, stay shackles, back-stays, turnbuckles, screw anchors and table"},
     {"name": "detail", "groups": ["internal"], "explode": False, "el": 18, "az": -35,
-     "note": "Detail of the far end from the front right and above (about 18 deg elevation): stake above the bed, "
+     "note": "Detail of the far end from the front right and above (about 18 deg elevation): stake above the bed "
+             "with its red paint ring at the bed (driven 3.5 m), "
              "stop pin, swivel collar, shackle and far block, with the loop and ring 2 arriving from the bank"},
 ]
 
@@ -75,6 +78,12 @@ def product_parts(P=P):
             continue
         if k == "stake":
             shape = shape & bx(S - 300, S + 300, -300, 300, -1500, 200)
+            zb = derived(P)["z_bed"]
+            ro = P["stake"][0] / 2
+            ring = Pos(S, 0, 0) * ztube(0, 0, ro + 0.6, ro - 0.5, zb, zb + 60)
+            add(c.name, shape - ring, color, mat, c.bom, grp, ex)
+            add("Driving paint ring (marks 3.5 m driven)", ring, "#DC2626", "painted", c.bom, grp, ex)
+            continue
         add(c.name, shape, color, mat, c.bom, grp, ex)
     add("Net stacked on the table (site)", X["net"], "#57534E", "fabric", None, "context", (0, 0, 0))
     from context_parts import mannequin

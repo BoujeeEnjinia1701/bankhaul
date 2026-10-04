@@ -16,7 +16,7 @@ revisions:
 - version: "0.2"
   date: '2026-10-03'
   author: Amish Chadha
-  change: R5 and R8 decided by Amish on 2026-10-03 as recommended (BKH-DDR-003) and moved to decisions made; new open question on beds weaker than 4.9 kPa; change log added
+  change: Amish decided both open items (14A far stake 3.5 m, 15A R8 restated); moved to Decisions made (BKH-DDR-003)
 ---
 
 # BankHaul design decisions register
@@ -27,11 +27,7 @@ Every design decision still to be made, and every decision made, in one place. E
 
 ## Open decisions
 
-R5 (far stake in very soft mud) and R8 (cost per station) were decided by Amish on 2026-10-03 and are listed under decisions made (BKH-DDR-003). Applying them raised one new question; its state, options and recommendation are in `docs/REVIEW.md`, round 2 session.
-
-| # | Decision needed | Options | Recommendation | Affects in the build | Source |
-| --- | --- | --- | --- | --- | --- |
-| 3 | Beds weaker than 4.9 kPa: the 5.0 m stake driven 3.5 m gives a factor of 2 on R5 only down to a bed of 4.9 kPa; at 3 kPa it gives 1.22 | A: do not site a station where any vane reading is under 5 kPa (no cost). B: two long stakes 1 m apart tied at the top in such beds (factor 2.19 at 3 kPa, estimate; about 33 kg more and a tie bar). C: a float-and-mooring far end for such beds, designed at TRL 4 | Proposed, awaiting Amish. Recommend A | Site selection (section 3.2); none in the parts for A | BKH-CAL-001, E; BKH-DDR-003 |
+None. Amish decided both requirement items on 2026-10-03 (decisions 14A and 15A, BKH-DDR-003); see Decisions made below.
 
 ## To confirm when parts are bought
 
@@ -43,13 +39,14 @@ R5 (far stake in very soft mud) and R8 (cost per station) were decided by Amish 
 | 4 | The jam cleats' fixing hole spacing | The cleat bar is drilled for 60 mm | BKH-DWG-101 |
 | 5 | The rope's breaking strength, floating and UV stabilisation | Factor 5.7 after a season assumes 20 kN new and half lost to sun | BKH-CAL-001, F |
 | 6 | The turnbuckles and shackles are rated and marked with their working load limits | They carry the stays at up to 2.1 kN | BKH-CAL-001, D |
-| 7 | The bed's shear strength at the trial site (a hand vane on extension rods from the boat, down to 2.5 m) | Under 10 kPa: the 5.0 m stake driven 3.5 m (BKH-DDR-003); under 5 kPa: open decision 3 | BKH-CAL-001, E |
+| 7 | The bed's shear strength at the trial site (a hand vane or cone test from the boat) | The 3.5 m stake holds at factor 2.03 down to about 5 kPa; a softer bed needs a new check | BKH-CAL-001, E |
+| 8 | Local prices for the local-materials station, with the co-design partner | Sets the restated R8 figure (estimate about USD 98 against USD 80) | BKH-CAL-001, I; BKH-DDR-003 |
 
 ## Value engineering
 
-Value-engineering target: USD 1,800 (a hypothetical control target, not a limit). Estimated cost of the constructable design: USD 392 including the stake driving cap (USD 1,408 under the target); USD 404 with the 5.0 m stake for a very soft bed (BKH-DDR-003). R8 (USD 80 per station) is not met by the steel trial station; by Amish's decision of 2026-10-03 a local-materials station is costed with the co-design partner from local prices before the season pilot, and that figure replaces the estimate for R8. Main cost drivers and savings worth trying:
+Value-engineering target: USD 1,800 (a hypothetical control target, not a limit). Estimated cost of the constructable design: USD 404 including the stake driving cap (USD 1,396 under the target). Main cost drivers and savings worth trying:
 
-- The two screw anchors (USD 76) are the largest line, then the rope (USD 54), the far stake (USD 48), the two blocks (USD 44), the table (USD 35) and the post (USD 32).
+- The two screw anchors (USD 76) are the largest line, then the far stake (USD 60), the rope (USD 54), the two blocks (USD 44), the table (USD 35) and the post (USD 32).
 - Rated rigging (shackles, turnbuckles, blocks) is kept because it carries the safety case.
 - Savings worth trying: rope bought only for the site's span (USD 29 for 30 m); a local timber table; anchors bought in bulk through a fencing or utility supplier; a hardwood far pole where the bed is firm.
 
@@ -73,12 +70,5 @@ The pre-approvals: Amish, 2026-10-03: "start with the first 14 repos from the li
 | 2026-10-03 | `budget_usd` kept at 1,800 as a value-engineering target | Amish: "I also accept any cost overruns or variations from the assumed scope cost." | BKH-DDR-001, item 12 |
 | 2026-10-03 | Design for construction: the twelve changes of BKH-DDR-002 | Amish, under both pre-approvals quoted above | BKH-DDR-002 |
 | 2026-10-03 | Appearance model additions for renders: loop cut short, stake above the bed only, net on the table, mannequin beside the post | Amish, under both pre-approvals quoted above | `docs/REVIEW.md`, TRL 3 |
-| 2026-10-03 | R5, far stake in very soft mud: option A, drive 3.5 m into very soft beds (5.0 m stake), the extra 1 m cut only where the vane test shows it is needed (factor 2.03 at 5 kPa) | Amish: "i approve all of the 47 recommendations provided by you. Execute them." | [BKH-DDR-003](decisions/0003-requirement-decisions-round2.md) |
-| 2026-10-03 | R8, cost per station: option A, build the steel station for the TRL 4 trials and cost a local-materials station with the co-design partner before the season pilot (R8 not met for the trial station) | Amish, same instruction | [BKH-DDR-003](decisions/0003-requirement-decisions-round2.md) |
-
-## Change log
-
-| Date | Change |
-| --- | --- |
-| 2026-10-03 | v0.1: register opened at TRL 3 with R5 and R8 proposed, awaiting Amish |
-| 2026-10-03 | v0.2: R5 (option A) and R8 (option A) decided by Amish (BKH-DDR-003) and moved to decisions made; open decision 3 (beds under 4.9 kPa) added; confirm item 7 updated |
+| 2026-10-03 | 14A, R5: far stake 5.0 m long, driven 3.5 m (factor 2.03 in very soft mud; USD 12 and 6.4 kg more) | Amish, 2026-10-03: "i agree with all the 46 recommendations you provided. please proceed." | BKH-DDR-003 |
+| 2026-10-03 | 15A, R8: build the steel station for the TRL 4 trials and cost a local-materials station with the co-design partner; R8 restated to apply USD 80 to the local-materials station | Amish, 2026-10-03: "i agree with all the 46 recommendations you provided. please proceed." | BKH-DDR-003 |

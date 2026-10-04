@@ -135,13 +135,12 @@ def sheets():
         ("BKH-DWG-102", "Far stake: making sketch", Part("Far stake", far_local["stake"], COL["stake"]),
          [ghost("collar", far_local["collar"]), ghost("pin", far_local["pin"])], None,
          "76.1 x 3.6 tube, S355; 4 mm plate; 6 mm plate; zinc-rich paint",
-         [f"Tube 3,850 long; overall {D['stake_len']:,.0f} with the point (vane under",
-          f"  {P['su_vane_min']:.0f} kPa: tube 4,850, overall {D['stake_len_vsoft']:,.0f}, BKH-DDR-003)",
+         [f"Tube {D['stake_len'] - P['point']:,.0f} long; overall {D['stake_len']:,.0f} with the point; 33 kg, two to lift",
           "Point: four 4 mm plate triangles welded to a cone, 150 long",
           "Cap disc 76 dia x 6 welded on the top; it takes every blow",
           f"Five 12.5 cross holes at {P['pin_pitch']:.0f} pitch, the top one 712 below the cap",
           "Drill the holes square through both walls on one line",
-          f"Paint ring {P['embed']:,.0f} above the point ({P['embed_vsoft']:,.0f} on the long stake): drive to it",
+          f"Mark a paint ring {P['embed']:,.0f} above the point: drive to this ring at the bed",
           "Paint after drilling; leave the bore open to drain",
           "Check: straight within 10 over the length; the pin slides through every hole"]),
         ("BKH-DWG-103", "Swivel collar: making sketch", Part("Swivel collar", far_local["collar"], COL["collar"]),
@@ -189,8 +188,15 @@ def sheets():
           "Make two; mark the weak link cord with paint so it is never swapped",
           "Check: the hook opens with one hand and snaps shut by itself"]),
     ]
+    revs = {"BKH-DWG-102": [("P1", "Making sketch for the prototype build plan", DATE, "AC"),
+                            ("P2", "BKH-DDR-003: stake 5.0 m long, driven 3.5 m (decision 14A)", DATE, "AC")]}
+    only = [a for a in sys.argv[2:] if a.startswith("BKH-DWG-")]
     for no, title, p, neigh, vs, mat, notes in sheets_:
-        bv.component_sheet(p, neigh, "BankHaul", no, title, mat, notes, DATE, view_shape=vs)
+        if only and no not in only:
+            continue
+        r = revs.get(no)
+        bv.component_sheet(p, neigh, "BankHaul", no, title, mat, notes, DATE, view_shape=vs,
+                           rev=r[-1][0] if r else "P1", revisions=r)
         print("sheet", no)
 
 
@@ -252,7 +258,7 @@ def steps():
         return [ghost(NAMES[k], C[k]) for k in keys]
     bank = ["anchors", "post", "stay_shackles", "stays", "turnbuckles", "cleats", "near_shackle", "near_block"]
     far = ["stake", "pin", "collar", "far_shackle", "far_block"]
-    stake_vis = crop(C["stake"], S - 300, S + 300, -300, 300, -4100, 100)
+    stake_vis = crop(C["stake"], S - 300, S + 300, -300, 300, -5100, 100)
     bed = Part("Lake bed (site)", crop(X["bed"], S - 800, S + 800, -800, 800, -1700, -1400), "#E5E7EB")
     water = Part("Water surface (site)", crop(X["water"], S - 800, S + 800, -800, 800, -600, -400), "#E5E7EB")
     T = [
@@ -267,7 +273,7 @@ def steps():
          done(["anchors", "post", "stay_shackles", "stays", "turnbuckles"]), [part("cleats", explode=(0, 0, 250))], []),
         ("Hang the near block", "Shackle through the pad eye and the block's swivel eye; mouse the pin",
          done(bank[:6]), [part("near_shackle", explode=(250, 0, 150)), part("near_block", explode=(450, 0, 250))], []),
-        ("Drive the far stake from a boat", "Driving cap on the cap disc; drive until the paint ring reaches the bed",
+        ("Drive the far stake from a boat", "5.0 m stake, two to lift; driving cap on the cap disc; drive until the 3.5 m paint ring reaches the bed",
          [], [part("stake", stake_vis, explode=(0, 0, 1200))], [bed, water]),
         ("Fit the stop pin and the collar", "Pin through the hole for the season's level; slide the collar down onto it",
          [ghost("Far stake", stake_vis)], [part("pin", explode=(0, -300, 0)), part("collar", explode=(0, 0, 900))], [water]),
@@ -284,12 +290,15 @@ def steps():
                                    ghost("Swivel rings", crop(C["rings"], -100, 1600, -300, 300, 0, 1100))],
          [part("bridle", explode=(0, -300, 250))], [Part("Net on the table (site)", X["net"], "#E5E7EB")]),
     ]
+    only = [int(a[5:]) for a in sys.argv[2:] if a.startswith("step-")]
     for i, (title, sub, dn, new, ctx) in enumerate(T, 1):
+        if only and i not in only:
+            continue
         bv.step(dn, new, OUT / f"step-{i:02d}.png", f"Step {i}: {title}", sub, context=ctx, label_done=len(dn) <= 6)
         print("step", i)
 
 
 if __name__ == "__main__":
-    which = sys.argv[1:] or ["overview", "sheets", "joints", "steps"]
+    which = [a for a in sys.argv[1:] if not a.startswith(("BKH-", "step-"))] or ["overview", "sheets", "joints", "steps"]
     for w in which:
         globals()[w]()
