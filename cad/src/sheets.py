@@ -83,14 +83,15 @@ def far_sheet(C, D):
     shape = Compound([Pos(-P["span"], 0, 0) * C[k].shape for k in keys])
     views = safe_project_views(shape, work)
     s = Sheet(project="BankHaul", title="Far end: stake, swivel collar and far block, general arrangement",
-              dwg_no="BKH-DWG-002", rev="P2", author="Amish Chadha", date=DATE, scale=None, theme="technical",
+              dwg_no="BKH-DWG-002", rev="P3", author="Amish Chadha", date=DATE, scale=None, theme="technical",
               material="Steel tube S355 per bom/bom.csv; bought block and shackle. PRELIMINARY, NOT FOR FABRICATION",
-              revisions=REVS)
+              revisions=REVS + [("P3", "BKH-DDR-003: 5.0 m stake driven 3.5 m in very soft beds", DATE, "AC")])
     s.add_ortho(views)
     s.add_svg(views["iso"], 276, 32, 140, 92, label="Isometric view", sublabel="Not to scale")
     s.add_notes("Main dimensions and interfaces (mm)", [
         f"Stake 76.1 x 3.6 S355 tube, {D['stake_len']:,.0f} long overall with a 150 point; 26.8 kg (2)",
         f"Driven {P['embed']:,.0f} into the bed; design water depth {P['water_depth']:,.0f}; top 500 above the water",
+        f"Vane under {P['su_vane_min']:.0f} kPa: {D['stake_len_vsoft']:,.0f} stake driven {P['embed_vsoft']:,.0f} (33 kg)",
         "Cap disc 6 thick takes the driving cap; never drive on the open tube",
         f"Five 12.5 holes at {P['pin_pitch']:.0f} pitch for the M12 stop pin (14)",
         "Collar 88.9 x 3.2 x 200 turns on the stake and rests on the pin (3)",
@@ -134,6 +135,10 @@ def layout_sheet(C, D):
 if __name__ == "__main__":
     D = derived(P)
     C = build_components(P, short=False)
-    bank_sheet(C, D)
-    far_sheet(C, D)
-    layout_sheet(build_components(P, short=True), D)
+    which = sys.argv[1:] or ["bank", "far", "layout"]
+    if "bank" in which:
+        bank_sheet(C, D)
+    if "far" in which:
+        far_sheet(C, D)
+    if "layout" in which:
+        layout_sheet(build_components(P, short=True), D)

@@ -3,7 +3,7 @@ doc_id: BKH-BLD-001
 title: BankHaul prototype build plan
 project: BankHaul
 doc_type: Build plan
-version: "0.1"
+version: "0.2"
 status: Draft
 date: '2026-10-03'
 author: Amish Chadha
@@ -13,6 +13,10 @@ revisions:
   date: '2026-10-03'
   author: Amish Chadha
   change: First build plan; design made constructable (BKH-DDR-002)
+- version: "0.2"
+  date: '2026-10-03'
+  author: Amish Chadha
+  change: Amish's round 2 decisions (BKH-DDR-003); hand vane reading of the bed and the 5.0 m stake for very soft beds
 ---
 
 # BankHaul prototype build plan
@@ -27,7 +31,7 @@ revisions:
 
 *Figure 1. Every component of the prototype station, numbered in build order. The far end is drawn beside the bank station so all parts show.*
 
-The prototype is one net-hauling station for a 30 m span: a steel post on the bank held back by two rope stays to two screw ground anchors, a block at the post's head, a steel stake driven into the bed with a turning collar and a second block, a loop of floating rope between the blocks, two net bridles with weak links, and a timber clearing table. Seven components are made (the post, stake, collar and table by welding, drilling and carpentry; the stays, loop and bridles by rope work) and seven are bought (blocks, swivel rings, jam cleats, screw anchors, turnbuckles, shackles and a stop pin). The station parts cost about USD 382 from the bill of materials.
+The prototype is one net-hauling station for a 30 m span: a steel post on the bank held back by two rope stays to two screw ground anchors, a block at the post's head, a steel stake driven into the bed with a turning collar and a second block, a loop of floating rope between the blocks, two net bridles with weak links, and a timber clearing table. Seven components are made (the post, stake, collar and table by welding, drilling and carpentry; the stays, loop and bridles by rope work) and seven are bought (blocks, swivel rings, jam cleats, screw anchors, turnbuckles, shackles and a stop pin). The station parts cost about USD 382 from the bill of materials (about USD 394 with the long stake for a very soft bed).
 
 ## 2. What changed to make it buildable
 
@@ -37,7 +41,7 @@ The prototype is one net-hauling station for a 30 m span: a steel post on the ba
 | Near pulley | A pulley on the anchor | A bought swivel block on a shackle through a pad eye at 950 mm | Commodity parts that line up with the loop by themselves |
 | Cleat and brake | A cleat on the anchor | A cleat bar slipped over the post with a jam cleat for each leg and a tie-off hole | The round post has no flat face for a cleat |
 | Screw anchors | Not defined | Two anchors with 250 mm helixes, screwed in line with the stays | The rods stay in tension; each holds about twice its load |
-| Far stake | A steel or hardwood stake | A 76.1 mm steel tube with a welded point and cap, driven 2.5 m into the bed | A lighter stake bends at the design load |
+| Far stake | A steel or hardwood stake | A 76.1 mm steel tube with a welded point and cap, driven 2.5 m into the bed (3.5 m, on a 5.0 m stake, where a hand vane reads under 10 kPa) | A lighter stake bends at the design load |
 | Far pulley and swivel | A pulley with a swivel | A collar that turns on the stake, resting on a stop pin that moves with the water level, with a bought block on a shackle | The collar is the swivel; the pin follows the season |
 | Rope loop | An endless spliced loop | Two halves joined by two swivel rings, one end of each half spliced and the other hitched | The loop length can change with the shoreline; the rings are the clip points and end stops |
 | Net clips | Quick clips | A bridle at each net end with a weak link and a snap hook | A seized net cannot pull more than about 700 N on the loop |
@@ -85,13 +89,15 @@ The prototype is one net-hauling station for a 30 m span: a steel post on the ba
 
 ![Making sketch: far stake](../cad/drawings/BKH-DWG-102.png)
 
-**What it is and what it is made from.** The post in the bed that carries the far block. It is a 76.1 mm by 3.6 mm S355 steel tube, 4.0 m long overall with its point, with five cross holes for the stop pin. It weighs about 27 kg.
+**What it is and what it is made from.** The post in the bed that carries the far block. It is a 76.1 mm by 3.6 mm S355 steel tube, 4.0 m long overall with its point, with five cross holes for the stop pin. It weighs about 27 kg. In a very soft bed the same stake is made 1 m longer, 5.0 m overall and about 33 kg, and driven 3.5 m (BKH-DDR-003).
+
+**Before cutting.** Read the bed's shear strength at the stake spot with a hand shear vane on extension rods, from the boat, at 0.5 m steps down to 2.5 m. If any reading is under 10 kPa, make the long stake.
 
 **How to make it.**
 
-1. Cut the tube 3,850 mm long with square ends.
+1. Cut the tube 3,850 mm long with square ends (4,850 mm for the long stake).
 2. Cut four triangles from 4 mm plate and weld them into a cone point 150 mm long on one end. Weld a 6 mm cap disc on the other end; this disc takes every blow when driving.
-3. Mark a paint ring 2,500 mm above the point: the stake is driven until this ring reaches the bed.
+3. Mark a paint ring 2,500 mm above the point (3,500 mm on the long stake): the stake is driven until this ring reaches the bed.
 4. Drill five 12.5 mm holes straight through both walls on one line, 200 mm apart, the top one 712 mm below the cap.
 5. Paint with zinc-rich paint after drilling.
 
@@ -290,7 +296,7 @@ Stack the net on the table, far end on top. Clip the far-end bridle to ring 1 an
 
 ## 6. Safety stops
 
-- **Before driving the far stake:** two people, a boat held on two anchors or a dry bed, a lookout on the water, and the local wildlife authority's advice on the site. Never wade.
+- **Before reading the bed with the vane and before driving the far stake:** two people, a boat held on two anchors or a dry bed, a lookout on the water, and the local wildlife authority's advice on the site. Never wade.
 - **Before the first load on the bank station:** stays tensioned, all shackle pins wired, anchors in line with the stays, and nobody in line with a stay or in the bight of the loop.
 - **Before the first pull test:** the person pulling stands behind a screen or to the side of the line; the load is applied slowly and held, never jerked.
 - **Before the first net is set:** both weak links tested from the same batch and marked; the jam cleats hold a leg against a firm pull.

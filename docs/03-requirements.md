@@ -3,7 +3,7 @@ doc_id: BKH-REQ-001
 title: BankHaul requirements
 project: BankHaul
 doc_type: Requirements
-version: "0.2"
+version: "0.3"
 status: Draft
 date: '2026-10-03'
 author: Amish Chadha
@@ -17,6 +17,10 @@ revisions:
   date: '2026-10-03'
   author: Amish Chadha
   change: TRL 3; targets made measurable, R10 (weak link) and R11 (working distance) added, status from BKH-CAL-001
+- version: "0.3"
+  date: '2026-10-03'
+  author: Amish Chadha
+  change: R5 and R8 status after Amish's round 2 decisions (BKH-DDR-003); targets unchanged
 ---
 
 # BankHaul requirements
@@ -31,10 +35,10 @@ Table 1. Requirements
 | R2 | Working span | At least 30 m (98 ft) between pulleys; stretch goal 50 m (164 ft) | Measured at the trial site | Met on paper: 30 m design case; rope bought for 50 m |
 | R3 | Hand pull force | Peak pull under 250 N (56 lbf) to haul a 30 m net with catch | Spring scale or load cell during trials | Met on paper: about 200 N (estimate) |
 | R4 | Bank anchor holding | Holds at least 3 kN (675 lbf) in soft wet soil without visible movement | Pull-out test on a CalRig-style rig | Met on paper: screw anchors at factor 2.1 on capacity in soil of 10 kPa shear strength |
-| R5 | Offshore stake or float holding | Holds at least 1.5 kN (337 lbf) horizontal load in soft mud | Pull-out tests in a representative bed | Met in soft mud (factor 2.5); at risk in very soft mud (factor 1.2) |
+| R5 | Offshore stake or float holding | Holds at least 1.5 kN (337 lbf) horizontal load in soft mud | Pull-out tests in a representative bed | Met on paper: factor 2.5 in soft mud with the stake driven 2.5 m; factor 2.0 in very soft mud (5 kPa) with a 5.0 m stake driven 3.5 m wherever a hand vane reads under 10 kPa (BKH-CAL-001, E; BKH-DDR-003) |
 | R6 | Cycle time | Full haul and reset under 10 minutes for a 30 m net | Timed trials | Met on paper: about 6 minutes (estimate, without clearing fish) |
 | R7 | Durability | One fishing season (6 months) of daily use without rope or pulley failure | Season-long pilot with inspection log | Met on paper (estimate): rope factor 5.7 after sun damage |
-| R8 | Cost | Parts under USD 80 per station | Costed bill of materials from local prices | Not met: USD 382 per station |
+| R8 | Cost | Parts under USD 80 per station | Costed bill of materials from local prices | Not met for the steel trial station: USD 382 (USD 394 with the long stake); a local-materials station is costed with the co-design partner before the season pilot (BKH-DDR-003) |
 | R9 | Level change | Bank anchor relocatable by two people in under 30 minutes as the shoreline moves | Timed relocation | Met on paper: about 22 minutes (estimate) |
 | R10 | Weak link | The net's bridle releases between 500 and 700 N, so a net seized by an animal or snag cannot load the loop, stake or fisher beyond that | Pull three samples of each cord batch to release | Met on paper; cord chosen by test when parts are bought |
 | R11 | Working distance | The fisher's working spot is at least 5 m (16 ft) from the water's edge at the day's level | Measured at the trial site | Met by layout: 5.0 m |

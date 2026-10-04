@@ -18,7 +18,9 @@ Constructable design, 2026-10-03 (BKH-DDR-002, decided under Amish's pre-approva
     back by two splayed rope back-stays with turnbuckles to two 250 mm helix screw ground anchors
     set in line with the stays; a pad eye at the head carries the near block on a shackle; a cleat
     bar slipped over the post carries two jam cleats and the net tie-off hole;
-    the far end is a 76.1 mm steel stake driven 2.5 m into the bed with a welded point and cap,
+    the far end is a 76.1 mm steel stake driven 2.5 m into the bed with a welded point and cap
+      (in very soft beds, where a hand vane reads under 10 kPa, a 5.0 m stake driven 3.5 m:
+      BKH-DDR-003; the model shows the 2.5 m design case),
     a swivel collar that turns on the stake and rests on a through-bolt stop pin (holes every
     200 mm for the season's water level) and carries the far block on a shackle;
     the loop is two halves of 12 mm floating rope joined by two eye-to-eye swivels that are the
@@ -59,6 +61,7 @@ PARAMS = {
     # 2 far stake: tube OD x wall, embedment below the bed, top above the water, point length
     "stake": (76.1, 3.6), "embed": 2500.0, "stake_top": 500.0, "point": 150.0, "pin_d": 12.0,
     "pin_pitch": 200.0,
+    "embed_vsoft": 3500.0, "su_vane_min": 10.0,    # very soft beds (vane under 10 kPa): drive 3.5 m (BKH-DDR-003)
     # 3 swivel collar: tube OD x wall x length, lug; far block sheave height above the water
     "collar": (88.9, 3.2, 200.0), "z_far_above_water": 200.0, "far_eye_r": 75.0,
     # 4 clearing table: top L x W, height, centre (x, y)
@@ -137,6 +140,7 @@ def derived(P=PARAMS):
     D["lug_r"] = lug_r
     D["z_lug"] = P["post_h"] - 40.0
     D["stake_len"] = P["water_depth"] + P["embed"] + P["stake_top"]
+    D["stake_len_vsoft"] = P["water_depth"] + P["embed_vsoft"] + P["stake_top"]   # 5.0 m stake, BKH-DDR-003
     D["z_bed"] = P["z_water"] - P["water_depth"]
     D["z_far"] = P["z_water"] + P["z_far_above_water"]
     D["loop_len"] = 2 * P["span"] + 2 * math.pi * D["r_pitch"]

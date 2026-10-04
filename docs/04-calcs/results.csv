@@ -3,10 +3,10 @@ R1,Set and haul with nobody in the water,No step needs anyone in the water once 
 R2,At least 30 m between pulleys; stretch 50 m,30 m design case; rope bought for 50 m,Met on paper,A
 R3,Peak pull under 250 N,200 N (estimate),Met on paper,B
 R4,Holds 3 kN in soft wet soil without movement,anchor factor 2.13 at su 10 kPa,Met on paper; pull test at TRL 4,D
-R5,Holds 1.5 kN horizontal in soft mud,factor 2.46 at su 10 kPa; 1.23 at su 5 kPa,Met in soft mud; at risk in very soft mud,E
+R5,Holds 1.5 kN horizontal in soft mud,factor 2.46 at su 10 kPa (2.5 m embedded); 2.03 at su 5 kPa with the 5.0 m stake driven 3.5 m where the vane reads under 10 kPa (BKH-DDR-003),Met on paper; pull test at TRL 4,E
 R6,Full haul and reset under 10 min,"6.2 min (estimate, without clearing fish)",Met on paper (estimate),G
 R7,One season without rope or pulley failure,rope factor 5.7 after UV loss,Met on paper (estimate); season pilot at TRL 4,F
-R8,Parts under USD 80 per station,USD 382,Not met,I
+R8,Parts under USD 80 per station,USD 382 for the steel trial station (USD 394 with the 5.0 m stake); local-materials costing with the co-design partner before the season pilot (BKH-DDR-003),Not met for the trial station,I
 R9,Relocated by two people in under 30 min,22 min (estimate),Met on paper (estimate),H
 R10,Weak link releases 500 to 700 N,510 to 690 N,Met on paper; calibrate at TRL 4,C
 R11,Working spot at least 5 m from the water's edge,5.0 m,Met by layout,J

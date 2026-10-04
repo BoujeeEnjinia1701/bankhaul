@@ -160,9 +160,23 @@ for name, c in (("soft", su_soft), ("very_soft", su_vsoft)):
     H = broms(c, dd, L_emb, e)
     out(f"stake_capacity_{name}", H, "N", f"su {c/1000:.0f} kPa, 76.1 mm tube, {L_emb:.1f} m embedded, load {e:.1f} m above the bed")
     out(f"stake_factor_{name}", H / 1500.0, "x", "on the 1.5 kN of R5; 2 or more taken as 'holds'")
+# BKH-DDR-003 (R5 option A): where a hand vane reads under 10 kPa the stake is 5.0 m long and driven 3.5 m
+L_vs = P["embed_vsoft"] / 1000
+H_vs = broms(su_vsoft, dd, L_vs, e)
+out("stake_capacity_very_soft_long", H_vs, "N", f"su 5 kPa, {L_vs:.1f} m embedded (5.0 m stake, BKH-DDR-003)")
+out("stake_factor_very_soft_long", H_vs / 1500.0, "x", "on the 1.5 kN of R5")
+lo_su, hi_su = 1e3, 10e3                 # weakest bed in which the 3.5 m embedment still gives a factor of 2
+for _ in range(60):
+    mid = (lo_su + hi_su) / 2
+    if broms(mid, dd, L_vs, e) / 1500.0 >= 2.0:
+        hi_su = mid
+    else:
+        lo_su = mid
+out("su_min_long_stake", hi_su / 1000, "kPa", "weakest bed for a factor of 2 with 3.5 m embedded")
 ROWS.append(("R5", "Holds 1.5 kN horizontal in soft mud",
-             f"factor {R['stake_factor_soft']:.2f} at su 10 kPa; {R['stake_factor_very_soft']:.2f} at su 5 kPa",
-             "Met in soft mud; at risk in very soft mud", "E"))
+             f"factor {R['stake_factor_soft']:.2f} at su 10 kPa (2.5 m embedded); {R['stake_factor_very_soft_long']:.2f} at su 5 kPa "
+             f"with the 5.0 m stake driven 3.5 m where the vane reads under 10 kPa (BKH-DDR-003)",
+             "Met on paper; pull test at TRL 4", "E"))
 so_, sw = P["stake"]
 Z = math.pi / 32 * (so_ ** 4 - (so_ - 2 * sw) ** 4) / so_
 for name, c in (("soft", su_soft), ("very_soft", su_vsoft)):
@@ -176,6 +190,8 @@ H_pair = 2 * broms(su_vsoft, dd, L_emb, e) * 0.9
 out("opt_twin_stake_very_soft", H_pair / 1500.0, "x", "two stakes 1 m apart, tied at the top, 10 % group loss")
 m_stake = 26.8
 out("stake_mass", m_stake, "kg", "4.0 m of 76.1 x 3.6 tube with point and cap (model)")
+m_stake_long = m_stake + 6.4                  # 1.0 m more of 76.1 x 3.6 tube at 6.4 kg/m
+out("stake_mass_long", m_stake_long, "kg", "5.0 m stake for very soft beds (BKH-DDR-003)")
 
 # ----------------------------------------------------------------------------- F. loop rope strength and durability (R7)
 print("\nF. Loop rope strength and durability (R7)")
@@ -226,7 +242,11 @@ local = {"hardwood post with bolted fittings": 8, "buried timber deadman and str
          "two hand-made hardwood sheaves on steel pins": 16, "loop rope for a 30 m span": 30, "two galvanised rings": 4,
          "bridles and weak links": 6, "hardwood cleats": 2, "pole table": 8, "four shackles": 10}
 out("opt_local_materials", float(sum(local.values())), "USD", "; ".join(local))
-ROWS.append(("R8", "Parts under USD 80 per station", f"USD {station:.0f}", "Not met", "I"))
+out("station_cost_very_soft", station + 12.0, "USD", "with the 5.0 m stake (1 m more tube, about USD 12, BKH-DDR-003)")
+ROWS.append(("R8", "Parts under USD 80 per station",
+             f"USD {station:.0f} for the steel trial station (USD {station + 12:.0f} with the 5.0 m stake); "
+             "local-materials costing with the co-design partner before the season pilot (BKH-DDR-003)",
+             "Not met for the trial station", "I"))
 
 # ----------------------------------------------------------------------------- J. layout and other requirements
 print("\nJ. Layout")
@@ -240,6 +260,7 @@ ROWS.append(("R11", "Working spot at least 5 m from the water's edge", f"{R['wor
 masses = {"bank post weldment": 17.2, "far stake": m_stake, "two screw anchors": 14.3, "clearing table": 26.4,
           "swivel collar": 1.6, "two blocks": 2 * 1.1, "loop rope (110 m)": 110 * P["rope_kg_m"]}
 out("heaviest_lift", max(masses.values()), "kg", "far stake (two people from a boat)")
+out("heaviest_lift_very_soft", m_stake_long, "kg", "5.0 m stake in very soft beds (two people from a boat)")
 out("station_mass", sum(masses.values()) + 4.0, "kg", "plus about 4 kg of stays, shackles, cleats and fixings")
 
 with open(ROOT / "docs" / "04-calcs" / "results.csv", "w", newline="") as fh:

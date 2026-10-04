@@ -3,7 +3,7 @@ doc_id: BKH-CAL-001
 title: BankHaul sizing calculations
 project: BankHaul
 doc_type: Calculation
-version: "0.1"
+version: "0.2"
 status: Draft
 date: '2026-10-03'
 author: Amish Chadha
@@ -13,11 +13,15 @@ revisions:
   date: '2026-10-03'
   author: Amish Chadha
   change: First sizing note at TRL 3 for the constructable design (BKH-DDR-002)
+- version: "0.2"
+  date: '2026-10-03'
+  author: Amish Chadha
+  change: Re-run for Amish's round 2 decisions (BKH-DDR-003); 5.0 m stake driven 3.5 m in very soft beds (R5 met on paper); R8 steel trial station with a local-materials costing before the season pilot
 ---
 
 # BankHaul sizing calculations
 
-The constructable design meets nine of the eleven requirements on paper. R8 (cost per station) is not met, at USD 382 against the target, and R5 (far stake holding) is met in soft mud but at risk in very soft mud. Every figure below is produced by `docs/04-calcs/sizing.py` from the parameters in `cad/src/model.py`; `docs/04-calcs/results.csv` holds the results table. Values marked "estimate" are first-order and are checked by test at TRL 4.
+The constructable design meets ten of the eleven requirements on paper after Amish's round 2 decisions of 2026-10-03 (BKH-DDR-003). R5 (far stake holding) is now met in very soft mud as well, with a 5.0 m stake driven 3.5 m wherever a hand vane reads under 10 kPa. R8 (cost per station) is not met for the steel trial station, at USD 382 (USD 394 with the long stake) against the target; its real figure comes from a local-materials costing with the co-design partner before the season pilot. Every figure below is produced by `docs/04-calcs/sizing.py` from the parameters in `cad/src/model.py`; `docs/04-calcs/results.csv` holds the results table. Values marked "estimate" are first-order and are checked by test at TRL 4.
 
 > **Safety:** These calculations size a rope system that works under load beside crocodile water. They are first-order and are not a substitute for proof-load tests on the anchors, stake, rope splices and weak links before the station is used.
 
@@ -31,10 +35,10 @@ Table 1. Results against every requirement
 | R2 | At least 30 m between pulleys; stretch 50 m | 30 m design case; rope bought for 50 m | Met on paper | A |
 | R3 | Peak pull under 250 N | 200 N (estimate) | Met on paper | B |
 | R4 | Holds 3 kN in soft wet soil without movement | Anchor factor 2.13 at 10 kPa | Met on paper; pull test at TRL 4 | D |
-| R5 | Holds 1.5 kN horizontal in soft mud | Factor 2.46 at 10 kPa; 1.23 at 5 kPa | Met in soft mud; **at risk in very soft mud** | E |
+| R5 | Holds 1.5 kN horizontal in soft mud | Factor 2.46 at 10 kPa (2.5 m embedded); 2.03 at 5 kPa with the 5.0 m stake driven 3.5 m | Met on paper; pull test at TRL 4 | E |
 | R6 | Full haul and reset under 10 min | 6.3 min (estimate, without clearing fish) | Met on paper (estimate) | G |
 | R7 | One season without rope or pulley failure | Rope factor 5.7 after sun damage | Met on paper (estimate) | F |
-| R8 | Parts under USD 80 per station | USD 382 | **Not met** | I |
+| R8 | Parts under USD 80 per station | USD 382 steel trial station (USD 394 with the long stake); local-materials costing before the season pilot | **Not met** for the trial station | I |
 | R9 | Relocated by two people in under 30 min | 22 min (estimate) | Met on paper (estimate) | H |
 | R10 | Weak link releases 500 to 700 N | 510 to 690 N | Met on paper; calibrate at TRL 4 | C |
 | R11 | Working spot at least 5 m from the water | 5.0 m | Met by layout | J |
@@ -97,9 +101,10 @@ Method: Broms' short free-head pile in cohesive soil. The load acts 1.2 m above 
 | Bed | Undrained shear strength | Ultimate lateral load | Factor on 1.5 kN | Bending stress at 1.5 kN |
 | --- | --- | --- | --- | --- |
 | Soft mud | 10 kPa | 3,689 N | **2.46** | 150 MPa (factor 2.4 on S355) |
-| Very soft mud | 5 kPa | 1,845 N | **1.23** | 162 MPa (factor 2.2 on S355) |
+| Very soft mud, 2.5 m embedded (not used) | 5 kPa | 1,845 N | 1.23 | 162 MPa (factor 2.2 on S355) |
+| Very soft mud, 5.0 m stake driven 3.5 m (BKH-DDR-003) | 5 kPa | 3,040 N | **2.03** | 162 MPa (factor 2.2 on S355) |
 
-A 60.3 mm stake would carry 3.0 kN in soft mud but reach about 250 MPa at 1.5 kN, too close to yield; the 76.1 mm tube was chosen for strength (BKH-DDR-002, item 6). R5 is met in soft mud and **at risk in very soft mud**. Options worked out for Amish (factor on 1.5 kN in very soft mud): embedding 3.0 m, **1.62**; embedding 3.5 m, **2.03**; two stakes 1 m apart tied at the top, **2.21**. The decision is in `docs/REVIEW.md`, Decisions for Amish.
+A 60.3 mm stake would carry 3.0 kN in soft mud but reach about 250 MPa at 1.5 kN, too close to yield; the 76.1 mm tube was chosen for strength (BKH-DDR-002, item 6). Amish chose on 2026-10-03 (BKH-DDR-003) to drive 3.5 m into very soft beds: before a stake is cut, a hand vane test from the boat reads the bed, and where it reads under 10 kPa the stake is cut 1 m longer (5.0 m overall, 33.2 kg, about USD 12 more). R5 is then met on paper in both beds. The bending stress does not change with the embedment, since the maximum moment sits just below the bed. The 3.5 m embedment gives a factor of 2 down to a bed of **4.9 kPa** [su_min_long_stake]; a bed weaker than that is not covered (a new question in `docs/REVIEW.md`). Options worked out at TRL 3 and not chosen: embedding 3.0 m, 1.62; two stakes 1 m apart tied at the top, 2.21.
 
 ## F. Loop rope strength and durability (R7)
 
@@ -120,17 +125,17 @@ Two people: unscrew both anchors (4 min), lift out the post and spike (2), carry
 
 ## I. Cost per station (R8) and value engineering
 
-The station parts in `bom/bom.csv` cost **USD 382**; with the stake driving cap, the prototype costs USD 392. Value-engineering target: USD 1,800. Estimated cost of the constructable design: USD 392 (USD 1,408 under the target).
+The station parts in `bom/bom.csv` cost **USD 382**; with the stake driving cap, the prototype costs USD 392. At a very soft site the 5.0 m stake adds about USD 12 (station USD 394). Value-engineering target: USD 1,800. Estimated cost of the constructable design: USD 392 (USD 1,408 under the target); USD 404 with the long stake.
 
-The largest cost drivers are the two screw anchors (USD 76), the rope (USD 54), the far stake (USD 48), the two blocks (USD 44), the table (USD 35) and the post (USD 32). Two options were costed for Amish:
+The largest cost drivers are the two screw anchors (USD 76), the rope (USD 54), the far stake (USD 48), the two blocks (USD 44), the table (USD 35) and the post (USD 32). Two other options were costed at TRL 3 and not chosen:
 
 - One bank post and table serving three loops at a landing site: about **USD 257** per loop.
-- A local-materials station (hardwood post with bolted fittings, buried timber deadman, hardwood far pole, two hand-made hardwood sheaves on steel pins, rope for a 30 m span only, galvanised rings, hardwood cleats, a pole table): about **USD 98**.
+- A local-materials station (hardwood post with bolted fittings, buried timber deadman, hardwood far pole, two hand-made hardwood sheaves on steel pins, rope for a 30 m span only, galvanised rings, hardwood cleats, a pole table): about **USD 98** (estimate from assumed prices).
 
-R8 is not met. The decision is in `docs/REVIEW.md`, Decisions for Amish.
+Amish chose on 2026-10-03 (BKH-DDR-003) to build this steel station for the TRL 4 trials, so that they test the method rather than the materials, and to cost a local-materials station with the co-design partner from local prices before the season pilot. R8 is not met for the trial station; the local costing will give the real R8 figure.
 
 ## J. Layout and masses
 
 - The post stands 6 m back from the water's edge and the fisher works within 1 m of it: **5.0 m** from the water (R11).
 - Once the far stake is set from a boat or at low water, setting, hauling, clearing and relocating the bank station are all done from the bank (R1).
-- Masses: bank post weldment 17.2 kg, far stake 26.8 kg, two screw anchors 14.3 kg, clearing table 26.4 kg, swivel collar 1.6 kg, two blocks 2.2 kg, rope 7.5 kg, small parts about 4 kg: about **100 kg** for the station. The heaviest part is the far stake, handled by two people from a boat.
+- Masses: bank post weldment 17.2 kg, far stake 26.8 kg, two screw anchors 14.3 kg, clearing table 26.4 kg, swivel collar 1.6 kg, two blocks 2.2 kg, rope 7.5 kg, small parts about 4 kg: about **100 kg** for the station (about 106 kg with the 5.0 m stake). The heaviest part is the far stake, handled by two people from a boat: 26.8 kg, or 33.2 kg for the 5.0 m stake.
