@@ -3,9 +3,9 @@ doc_id: BKH-DDR-003
 title: BankHaul requirement decisions, round 2
 project: BankHaul
 doc_type: Design decision record
-version: "0.1"
-status: Draft
-date: '2026-10-03'
+version: '0.2'
+status: Superseded
+date: '2026-10-25'
 author: Amish Chadha
 license: CERN-OHL-S-2.0
 revisions:
@@ -13,9 +13,15 @@ revisions:
   date: '2026-10-03'
   author: Amish Chadha
   change: R5 (far stake in very soft mud) and R8 (cost per station) decided by Amish on 2026-10-03, both as recommended
+- version: '0.2'
+  date: '2026-10-25'
+  author: Amish Chadha
+  change: 'Superseded by BKH-DDR-003 in 0003-amish-requirement-decisions.md, which records the same two decisions (BKH-DEC-001 O-5, decided by Amish 2026-10-25)'
 ---
 
 # 0003: Requirement decisions, round 2
+
+> **Superseded** (Amish, 2026-10-25, BKH-DEC-001 O-5): this record duplicates the ID BKH-DDR-003 and the two decisions of `0003-amish-requirement-decisions.md`, which is the record kept. It stays here for history only.
 
 - **Date:** 2026-10-03
 - **Status:** decided. Decided by Amish Chadha, 2026-10-03: "i approve all of the 47 recommendations provided by you. Execute them." Both decisions below were the recommended options in `docs/REVIEW.md` (TRL 3, Decisions for Amish) and in the design decisions register, taken exactly as worded there.

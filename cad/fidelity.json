@@ -1,0 +1,47 @@
+{
+ "level": "D3",
+ "stage": "P3",
+ "hash": "7e73362e055a8703",
+ "options": {
+  "A": {
+   "title": "Running rope loop",
+   "parts": 161,
+   "made_or_bought": 70,
+   "fasteners": 76,
+   "welds": 15,
+   "bare": [],
+   "bare_share": 0.0,
+   "interference": [],
+   "mass_kg": 104.9,
+   "step_files": 70
+  },
+  "B": {
+   "title": "Overhead cableway",
+   "parts": 175,
+   "made_or_bought": 73,
+   "fasteners": 82,
+   "welds": 20,
+   "bare": [],
+   "bare_share": 0.0,
+   "interference": [],
+   "mass_kg": 201.5,
+   "step_files": 0
+  },
+  "C": {
+   "title": "Counterweighted shore lift net",
+   "parts": 127,
+   "made_or_bought": 59,
+   "fasteners": 34,
+   "welds": 34,
+   "bare": [],
+   "bare_share": 0.0,
+   "interference": [],
+   "mass_kg": 394.0,
+   "step_files": 0
+  }
+ },
+ "failures": [],
+ "warnings": [],
+ "passed": true,
+ "seconds": 214.9
+}

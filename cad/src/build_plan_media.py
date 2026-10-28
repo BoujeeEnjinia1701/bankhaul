@@ -55,7 +55,7 @@ def ghost(name, shape):
 
 # local shapes for the rope parts' sketches
 def stay_piece():
-    L = 1440.0
+    L = D['stay_eyes']             # exact chain length; .kit/drawing.py fails to project this piece at 1,100 or 1,110
     r = P["stay_d"] / 2
     body = xcyl(0, 0, r, 40, L - 40)
     eyes = [Pos(x, 0, 0) * Torus(28.0, r) for x in (28.0, L - 28.0)]
@@ -126,7 +126,7 @@ def sheets():
          ["Tube 992 long, ends square; foot plate 350 x 350 x 8 welded under it",
           "Spike 20 round, 400 below the plate centre, ground to a point",
           "Cap disc 60 dia x 8 welded on the top of the tube",
-          f"Pad eye 8 plate: 18 hole {P['eye_r']:.0f} from the post axis, {P['z_block']:.0f} up, facing the water",
+          f"Pad eye 8 plate 64 x 100: 18 hole {P['eye_r']:.0f} from the axis, {P['z_block']:.0f} up, facing the water",
           f"Two stay lugs 8 plate: 15 holes 960 up, {D['stay_plan_deg']:.0f} deg either side of straight back",
           "Cleat bar 130 x 500 x 8: 48.9 hole, slip on, top 850 up, weld all round",
           "Cleat bar holes: four 9 at 170 and 230 either side; one 15 tie-off hole",
@@ -156,17 +156,17 @@ def sheets():
          [ghost("net", Pos(-P['table_xy'][0], -P['table_xy'][1], 0) * X["net"])], None,
          "Hardwood or treated softwood; 50 mm galvanised screws",
          ["Top 1,200 x 600, 850 high; five boards 100 x 25 with 25 gaps",
-          "Legs 50 x 50 x 750 inset 50 from the ends and the sides",
-          "Long rails 75 x 25 outside the legs; end rails 50 x 75 between them",
+          "Legs 50 x 50 x 825 inset 50 from the ends and the sides, up to the boards",
+          "Long rails 75 x 25 outside the legs; end rails 50 x 75 x 550 inside them",
           "Two lip boards 25 x 75 along the long edges stop the net sliding off",
-          "Two screws at every crossing; drill pilot holes in hardwood",
+          "Two 50 screws at every crossing, 80 through the legs; 100 through the lips",
           "Check: stands level on firm ground without rocking"]),
         ("BKH-DWG-105", "Back-stay: making sketch", Part("Back-stay", stay_piece(), COL["stays"]),
          [], None,
          "10 mm three-strand polyester; two thimbles",
-         ["Cut 1,800 of rope; tape and melt the ends",
+         ["Cut 1,500 of rope; tape and melt the ends",
           "Eye splice round a thimble at each end, five full tucks",
-          "Length 1,440 between the eye centres after splicing",
+          f"Length {D['stay_eyes']:,.0f} between the thimble centres after splicing",
           "Shackle one eye to a post lug, the other to the turnbuckle jaw",
           "Make two; check both are the same length within 20"]),
         ("BKH-DWG-106", "Rope loop half and swivel ring: making sketch", Part("Loop half end", rope, COL["loop"]),
@@ -174,7 +174,7 @@ def sheets():
          "12 mm floating polysteel rope; eye-to-eye swivel",
          ["Cut two halves of 55 m from the 120 m coil; tape and melt the ends",
           "Splice a soft eye 80 long round one swivel eye in each half; five tucks",
-          "Lead each plain end round the other ring: round turn and two half hitches",
+          "Splice each plain end round the other ring at installation, five tucks; never a hitch",
           "Set the length so the rings lie at the blocks when the loop is snug",
           "Seize the knot's tail and coil any surplus at the ring, never between rings",
           "Check: each ring turns freely on its swivel under a hand pull"]),
@@ -188,8 +188,16 @@ def sheets():
           "Make two; mark the weak link cord with paint so it is never swapped",
           "Check: the hook opens with one hand and snaps shut by itself"]),
     ]
-    revs = {"BKH-DWG-102": [("P1", "Making sketch for the prototype build plan", DATE, "AC"),
-                            ("P2", "BKH-DDR-003: stake 5.0 m long, driven 3.5 m (decision 14A)", DATE, "AC")]}
+    P1 = ("P1", "Making sketch for the prototype build plan", DATE, "AC")
+    K = "2026-10-25"
+    revs = {"BKH-DWG-101": [P1, ("P2", "Kit 1.9 D3 model; D-S1 pad eye 64 x 100", K, "AC")],
+            "BKH-DWG-102": [P1, ("P2", "BKH-DDR-003: stake 5.0 m long, driven 3.5 m (decision 14A)", DATE, "AC"),
+                            ("P3", "Kit 1.9 D3 model: four-plate point, welds", K, "AC")],
+            "BKH-DWG-103": [P1, ("P2", "Kit 1.9 D3 model", K, "AC")],
+            "BKH-DWG-104": [P1, ("P2", "D-S4: legs 825, end rails 550 inside the legs, screws", K, "AC")],
+            "BKH-DWG-105": [P1, ("P2", "D-S3: 1,110 between thimbles, cut 1,500", K, "AC")],
+            "BKH-DWG-106": [P1, ("P2", "Kit 1.9 D3 model", K, "AC")],
+            "BKH-DWG-107": [P1, ("P2", "Kit 1.9 D3 model", K, "AC")]}
     only = [a for a in sys.argv[2:] if a.startswith("BKH-DWG-")]
     for no, title, p, neigh, vs, mat, notes in sheets_:
         if only and no not in only:
@@ -207,7 +215,7 @@ def joint8():
     other = Rot(0, 0, 180) * rope
     drop = Pos(0, 0, -16)
     return [Part("Swivel ring", ring, COL["rings"]), Part("Loop half, spliced eye", rope & bx(-500, 0, -99, 99, -99, 99), COL["loop"]),
-            Part("Other loop half, hitched on", other & bx(0, 500, -99, 99, -99, 99), "#9F1239"),
+            Part("Other loop half, spliced eye", other & bx(0, 500, -99, 99, -99, 99), "#9F1239"),
             Part("Snap hook", drop * hook, "#6B7280"), Part("Weak link", drop * weak, "#FACC15"),
             Part("Net bridle", drop * (cord & bx(-50, 50, -50, 50, -500, -130)), COL["bridle"])]
 
@@ -244,7 +252,7 @@ def joints():
           part("stake", crop(C["stake"], S - 200, S + 200, -200, 200, -450, -150)),
           part("loop", crop(C["loop"], S - 700, S, -200, 200, -350, -250))], None),
         ("joint-08.png", "Swivel ring, loop eyes and net bridle",
-         "One loop half spliced, the other hitched, on the two ring eyes; the bridle's snap hook clips on the ring through the weak link",
+         "Each loop half on its own spliced eye at the ring; the bridle's snap hook clips on the ring through the weak link",
          joint8(), None),
     ]
     for fn, title, sub, parts, cut in J:

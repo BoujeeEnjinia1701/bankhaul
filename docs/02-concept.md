@@ -3,9 +3,9 @@ doc_id: BKH-PRC-001
 title: BankHaul design precis
 project: BankHaul
 doc_type: Precis
-version: "0.3"
+version: '0.5'
 status: Draft
-date: '2026-10-03'
+date: '2026-10-25'
 author: Amish Chadha
 license: CERN-OHL-S-2.0
 revisions:
@@ -21,6 +21,14 @@ revisions:
   date: '2026-10-03'
   author: Amish Chadha
   change: Far stake driven 3.5 m and R8 restated (Amish's decisions 14A and 15A, BKH-DDR-003); numbers updated
+- version: "0.4"
+  date: '2026-10-25'
+  author: Amish Chadha
+  change: "Kit 1.8 and 1.9 upgrade: concept options and STEM check linked; STEM fixes D-S1 to D-S7 (stake capacity, stay strength, both loop ends spliced, top pin hole); requirement numbers PR-001 to PR-016"
+- version: '0.5'
+  date: '2026-10-25'
+  author: Amish Chadha
+  change: 'Concept A chosen by Amish (O-1, 2026-10-25); station USD 399 with the bank-edge board (O-2)'
 ---
 
 # BankHaul design precis
@@ -37,7 +45,7 @@ A rope loop runs from a post on the bank out to a stake in the water and back. O
 
 - **Bank station.** A 48.3 mm steel post stands on a 350 mm foot plate with a ground spike, at least 6 m back from the water. Two rope back-stays with turnbuckles hold it back to two screw ground anchors with 250 mm helixes. A swivel block hangs from a pad eye at 950 mm, about waist height. A cleat bar carries two jam cleats, one for each leg of the loop, and a hole to tie off the net's near end.
 - **Far end.** A 76.1 mm steel stake, 5.0 m long, is driven 3.5 m into the bed from a boat or at low water. A collar turns on the stake, resting on a through-bolt stop pin that can be moved up or down a hole as the season's water level changes; a second swivel block hangs from the collar, so it lines up with the loop by itself.
-- **Loop.** Two halves of 12 mm floating rope are joined by two eye-to-eye swivels. The swivels are the clip rings: when ring 1 is at the bank, ring 2 is at the far block, and each ring stops at a block if pulled too far.
+- **Loop.** Two halves of 12 mm floating rope, eye-spliced at both ends, are joined by two eye-to-eye swivels. The swivels are the clip rings: when ring 1 is at the bank, ring 2 is at the far block, and each ring stops at a block if pulled too far.
 - **Setting.** The fisher clips the far end of the net to ring 1 through a weak link and pulls the other leg of the loop hand over hand; ring 1 carries the net's far end out while the net pays out from the table. When ring 1 reaches the far block, the net lies along the loop. The near end is tied to the cleat bar through a second weak link, and each leg is dropped into its jam cleat.
 - **Hauling.** The fisher frees the legs, unties the near end and pulls the net in onto the table hand over hand; the loop follows, bringing ring 1 and the far end in last. The table is at least 5 m from the water.
 
@@ -60,6 +68,10 @@ A rope loop runs from a post on the bank out to a stake in the water and back. O
 | 13 | Shackles (6) | Join blocks, stays and anchors | Bought: rated 10 mm |
 | 14 | Stop pin | Holds the collar at the season's level | Bought: M12 bolt |
 
+## Concept options and STEM check
+
+This design is option A of three concept options scored against the user requirements (BKH-OPT-001): A, the running rope loop, scores 178 of 220, C, a counterweighted shore lift net, 149 and B, an overhead cableway, 139; Amish chose A on 2026-10-25 (BKH-DDR-004). The STEM check (BKH-STM-001) finds the loop within known science after seven detail fixes made under Amish's standing instruction of 2026-10-23 (BKH-DEC-001 D-S1 to D-S7); it stays open on field data.
+
 ## Key design choices
 
 Each choice is recorded in BKH-DDR-001 (TRL 2 review) or BKH-DDR-002 (design for construction) and listed in `docs/06-design-decisions.md`.
@@ -81,14 +93,14 @@ All figures from BKH-CAL-001; assumptions are stated there.
 | Pull to set the net | about 43 N | Loop and net paying out at 0.5 m/s |
 | Weak link release | 500 to 700 N | Nominal 600 N, plus or minus 15 % |
 | Far end design load | 1.4 kN | Both legs at the link's highest release |
-| Stay tension at the 3 kN bank load | 2.1 kN each | Stays 39 degrees up, 22 degrees either side |
+| Stay tension at the 3 kN bank load | 2.1 kN each, factor 6.4 on 10 mm polyester | Stays 39 degrees up, 22 degrees either side |
 | Screw anchor capacity | 4.4 kN each | 250 mm helix, 0.9 m deep, soil of 10 kPa shear strength |
-| Far stake capacity | 6.1 kN in soft mud; 3.0 kN in very soft mud (factor 2.03 on R5) | Broms, short free-head pile, 3.5 m embedded |
+| Far stake capacity | 4.2 kN in soft mud (the stake yields first); 3.0 kN in very soft mud (factor 2.03 on PR-005) | Broms, the lesser of the short and long free-head pile, 3.5 m embedded (D-S2) |
 | Cycle time | about 6 minutes | Without clearing fish |
 | Station mass | about 106 kg; heaviest part 33.2 kg (far stake) | Model volumes and catalogue figures |
-| Station parts | USD 394 (steel trial station; R8 now applies to a local-materials station costed with the co-design partner) | `bom/bom.csv` |
+| Station parts | USD 399 (steel trial station; R8 now applies to a local-materials station costed with the co-design partner) | `bom/bom.csv` |
 
-Value-engineering target: USD 1,800. Estimated cost of the constructable design: USD 404 including the stake driving cap (USD 1,396 under the target).
+Value-engineering target: USD 1,800. Estimated cost of the constructable design: USD 409 including the stake driving cap (USD 1,391 under the target).
 
 ## Patent design-arounds
 

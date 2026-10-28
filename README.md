@@ -2,11 +2,13 @@
 
 ![BankHaul: bank station that sets and hauls a net on a rope loop](media/render-hero.png)
 
-![TRL 3](https://img.shields.io/badge/TRL-3%20of%209-0F766E) ![Hardware: CERN-OHL-S-2.0](https://img.shields.io/badge/hardware-CERN--OHL--S--2.0-111827) ![Software: MIT](https://img.shields.io/badge/software-MIT-111827) [![REUSE compliant](https://github.com/BoujeeEnjinia1701/bankhaul/actions/workflows/reuse.yml/badge.svg)](https://github.com/BoujeeEnjinia1701/bankhaul/actions/workflows/reuse.yml) [![Archived in Software Heritage](https://archive.softwareheritage.org/badge/origin/https://github.com/BoujeeEnjinia1701/bankhaul/)](https://archive.softwareheritage.org/browse/origin/?origin_url=https://github.com/BoujeeEnjinia1701/bankhaul) [![DOI](https://zenodo.org/badge/{"message":"GitHub access to this repository is not enabled for this session. Use add_repo to request access. If add_repo answers that read access is already available and you need GitHub API or write access, call add_repo again with access:\"push\" to attach the repository with credentials.","documentation_url":"https://docs.anthropic.com/en/docs/claude-code/github-actions"}.svg)](https://zenodo.org/badge/latestdoi/{"message":"GitHub access to this repository is not enabled for this session. Use add_repo to request access. If add_repo answers that read access is already available and you need GitHub API or write access, call add_repo again with access:\"push\" to attach the repository with credentials.","documentation_url":"https://docs.anthropic.com/en/docs/claude-code/github-actions"})
+![TRL 3](https://img.shields.io/badge/TRL-3%20of%209-0F766E) ![Stage P3](https://img.shields.io/badge/stage-P3%20design%20outputs-0F766E) ![Hardware: CERN-OHL-S-2.0](https://img.shields.io/badge/hardware-CERN--OHL--S--2.0-111827) ![Software: MIT](https://img.shields.io/badge/software-MIT-111827) [![REUSE compliant](https://github.com/BoujeeEnjinia1701/bankhaul/actions/workflows/reuse.yml/badge.svg)](https://github.com/BoujeeEnjinia1701/bankhaul/actions/workflows/reuse.yml) [![Archived in Software Heritage](https://archive.softwareheritage.org/badge/origin/https://github.com/BoujeeEnjinia1701/bankhaul/)](https://archive.softwareheritage.org/browse/origin/?origin_url=https://github.com/BoujeeEnjinia1701/bankhaul) [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.23132238.svg)](https://doi.org/10.5281/zenodo.23132238)
 
-**Area:** Food and water security · **TRL:** 3 of 9 (proof of concept on paper, design constructable) · **Value-engineering target:** USD 1,800 (estimated prototype cost USD 404) · **Difficulty:** 2 of 5
+**Area:** Food and water security · **TRL:** 3 of 9 (proof of concept on paper, design constructable) · **Stage:** P3 · **Value-engineering target:** USD 1,800 (estimated prototype cost USD 409) · **Difficulty:** 2 of 5
 
 Sets and hauls nets from the bank on a rope loop so fishers stop wading into crocodile water.
+
+[Studio render](media/render-studio.png) · [Interactive 3D model](media/viewer.html) · [Concept blueprint (PDF)](media/concept-blueprint.pdf) · [Bank station GA BKH-DWG-001 (PDF)](cad/drawings/BKH-DWG-001.pdf) · [STEM check](docs/01b-stem-check.md) · [Concept options](docs/02a-concept-options.md) · [Requirements](docs/03-requirements.md) · [Traceability](docs/03b-traceability.md) · [Calculations](docs/04-calcs/01-sizing.md) · [Build plan](docs/05-build-plan.md) · [Decisions](docs/06-design-decisions.md) · [Review note](docs/REVIEW.md)
 
 > CONCEPT, NOT FOR FABRICATION. BankHaul is a TRL 3 design on paper: it has not been built or tested.
 
@@ -58,11 +60,21 @@ Full problem statement: [docs/01-problem.md](docs/01-problem.md)
 
 A running rope loop from a bank anchor out to a pulley on a stake or anchored float; fishers set and haul their nets by pulling the loop from the bank and never wade into crocodile water.
 
-A steel post on the bank, held back by two rope stays to screw ground anchors, carries a swivel block at waist height. A steel stake driven into the bed carries a second block on a collar that turns and follows the water level. Two halves of 12 mm floating rope joined by two swivel rings make the loop; the net's far end clips to a ring through a weak link and is pulled out by the loop, then hauled back by hand onto a table at least 5 m from the water. The peak hand pull is about 200 N (BKH-CAL-001).
+This is option A, the current design; Amish chose it on 2026-10-25 (BKH-DDR-004). A steel post on the bank, held back by two rope stays to screw ground anchors, carries a swivel block at waist height. A steel stake driven into the bed carries a second block on a collar that turns and follows the water level. Two halves of 12 mm floating rope joined by two swivel rings make the loop; the net's far end clips to a ring through a weak link and is pulled out by the loop, then hauled back by hand onto a table at least 5 m from the water. The peak hand pull is about 200 N (BKH-CAL-001).
 
 ![BankHaul concept, shortened layout](media/hero.png)
 
-Full design precis: [docs/02-concept.md](docs/02-concept.md) · Requirements: [docs/03-requirements.md](docs/03-requirements.md) · Calculations: [docs/04-calcs/01-sizing.md](docs/04-calcs/01-sizing.md) · Prototype build plan: [docs/05-build-plan.md](docs/05-build-plan.md) · Design decisions: [docs/06-design-decisions.md](docs/06-design-decisions.md)
+Full design precis: [docs/02-concept.md](docs/02-concept.md) · User requirements: [docs/03a-user-requirements.md](docs/03a-user-requirements.md) · Product requirements: [docs/03-requirements.md](docs/03-requirements.md) · Calculations: [docs/04-calcs/01-sizing.md](docs/04-calcs/01-sizing.md) · Prototype build plan: [docs/05-build-plan.md](docs/05-build-plan.md) · Design decisions: [docs/06-design-decisions.md](docs/06-design-decisions.md) · Regulatory, feasibility, risk, market and plan: [07](docs/07-regulatory.md), [08](docs/08-feasibility.md), [09](docs/09-risk.md), [10](docs/10-market.md), [11](docs/11-plan.md)
+
+## STEM check
+
+Thirty-eight claims are checked (BKH-STM-001): 21 are within known science, 15 need field data or the bought parts' data at TRL 4 (the users' pull, weak link scatter, driving the stake, UV loss, rope strength, bush wear, corrosion, a team lift in a boat, exposure and catch), so the check stays open, and 2 fail with a fix proposed in the options not carried forward. Seven details of the current design failed and were fixed under Amish's standing instruction, three of them found by an independent reviewer: a longer pad eye, the stake's capacity taken as the lesser of soil and steel, shorter stays that fit their hardware, table and bolt fits, the stays' real rope rating, both loop ends spliced instead of hitched, and no use of the stake's top pin hole in very soft beds.
+
+## Concept options
+
+![Three ways to keep fishers out of the water, side by side at one scale](media/options.png)
+
+Option A, the running rope loop (178 of 220), is recommended over option C, a counterweighted shore lift net (149), and option B, an overhead cableway (139); the choice is Amish's (BKH-OPT-001). All three are modelled at the same level of detail. The picture is a provisional shaded preview until the Cycles render replaces it.
 
 ## Key components
 
@@ -76,7 +88,7 @@ Full design precis: [docs/02-concept.md](docs/02-concept.md) · Requirements: [d
 
 ## Building the prototype
 
-The prototype is one station for a 30 m span, built from seven made and seven bought components. The post, stake and collar are cut, drilled and welded from steel tube and plate; the table is simple carpentry; the stays, loop and bridles are rope work. The bank station is set up on land; the far stake is driven from a boat or at low water, never by wading. The illustrated, step-by-step plan is in [docs/05-build-plan.md](docs/05-build-plan.md) (plan, not yet built).
+The prototype is one station for a 30 m span, built from eight made and seven bought components, about USD 399 in parts. The post, stake and collar are cut, drilled and welded from steel tube and plate; the table is simple carpentry; the stays, loop and bridles are rope work. The bank station is set up on land; the far stake is driven from a boat or at low water, never by wading. The illustrated, step-by-step plan is in [docs/05-build-plan.md](docs/05-build-plan.md) (plan, not yet built).
 
 ![Every component, pulled apart and numbered in build order](docs/05-build-plan/overview.png)
 
@@ -86,7 +98,7 @@ The prototype is one station for a 30 m span, built from seven made and seven bo
 >
 > BankHaul reduces time in the water; it does not protect anyone from a crocodile that leaves the water. Keep away from the water's edge at night where possible and follow local wildlife authority advice.
 >
-> Installing the offshore stake or float is the most dangerous step; do it from a boat or at low water, never by wading alone.
+> Installing the offshore stake or float is the most dangerous step; do it from a boat or at low water with a second person watching, never by wading.
 >
 > Rope under load can snap back; never stand in the bight of the loop or in line with a loaded stay, and check anchors, stays, blocks and rope before each season.
 >
@@ -100,9 +112,10 @@ The prototype is one station for a 30 m span, built from seven made and seven bo
 
 | Folder | Contents |
 | --- | --- |
-| `docs/` | Problem, concept, requirements, calculations and design decisions |
-| `cad/src/` | build123d Python source, the source of truth for all geometry |
-| `cad/step/`, `cad/stl/` | Exported models for FreeCAD, other CAD tools and printing |
+| `docs/` | Controlled documents (PRB, STM, PRC, OPT, URS, PRS, RTM, CAL, BLD, DEC, REG, FEA, RSK, MKT, PLN, DDR) and the review note |
+| `cad/src/` | build123d Python source, the source of truth for all geometry: `model.py` (options A, B and C at detail level D3, kit 1.9), `bkh_parts.py` (rigging hardware), drawing, picture and product model scripts |
+| `cad/step/`, `cad/stl/` | STEP per part of option A (`cad/step/A/`) and per option assembly; legacy STEP and STL of the design case |
+| `cad/fidelity.json` | CAD fidelity check result (`python .kit/cad_check.py --export`) |
 | `cad/drawings/` | 2D sketches and dimensioned drawings |
 | `bom/` | Bill of materials |
 | `electronics/` | KiCad schematics and PCB layouts |
@@ -112,7 +125,7 @@ The prototype is one station for a 30 m span, built from seven made and seven bo
 
 ## Documentation
 
-Controlled documents follow the portfolio [documentation standard](.kit/STANDARDS.md). Each carries a document ID (BKH-PRC-001 for the precis), a version and a revision history. Branded PDFs are built with `python .kit/render.py` and attached to GitHub Releases when a document is tagged, for example `BKH-PRC-001/v1.0`.
+Controlled documents follow the portfolio [documentation standard](.kit/STANDARDS.md). Each carries a document ID (BKH-PRC-001 for the precis), a version and a revision history. Branded PDFs are built with `python .kit/render.py` and attached to GitHub Releases when a document is tagged, for example `BKH-PRC-001/v1.0`. Run `python .kit/render.py --check` to validate the documents, `python docs/04-calcs/sizing.py` and `python docs/04-calcs/stem_check.py` for the calculations, `python .kit/trace.py` for the traceability matrix and `python .kit/cad_check.py --export` for the CAD fidelity check.
 
 ## Credits
 

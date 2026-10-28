@@ -3,9 +3,9 @@ doc_id: BKH-BLD-001
 title: BankHaul prototype build plan
 project: BankHaul
 doc_type: Build plan
-version: "0.2"
+version: '0.4'
 status: Draft
-date: '2026-10-03'
+date: '2026-10-25'
 author: Amish Chadha
 license: CERN-OHL-S-2.0
 revisions:
@@ -17,6 +17,14 @@ revisions:
   date: '2026-10-03'
   author: Amish Chadha
   change: Far stake 5.0 m long, driven 3.5 m (BKH-DDR-003, Amish's decision 14A); cost updated
+- version: "0.3"
+  date: '2026-10-25'
+  author: Amish Chadha
+  change: "Kit 1.9 D3 model; STEM fixes under Amish's standing instruction: pad eye 64 x 100 mm (D-S1), stays 1,110 mm between thimbles (D-S3), table legs, end rails and screws, cleat bolts M8 x 35 (D-S4); pictures redrawn from the D3 model"
+- version: '0.4'
+  date: '2026-10-25'
+  author: Amish Chadha
+  change: 'Amish''s decisions of 2026-10-25: bank-edge board (O-2, line 18) made in section 3.8 and set in step 10, pull measured with and without it; far stake let down on a lowering rope in step 6 (O-7)'
 ---
 
 # BankHaul prototype build plan
@@ -31,7 +39,7 @@ revisions:
 
 *Figure 1. Every component of the prototype station, numbered in build order. The far end is drawn beside the bank station so all parts show.*
 
-The prototype is one net-hauling station for a 30 m span: a steel post on the bank held back by two rope stays to two screw ground anchors, a block at the post's head, a steel stake driven into the bed with a turning collar and a second block, a loop of floating rope between the blocks, two net bridles with weak links, and a timber clearing table. Seven components are made (the post, stake, collar and table by welding, drilling and carpentry; the stays, loop and bridles by rope work) and seven are bought (blocks, swivel rings, jam cleats, screw anchors, turnbuckles, shackles and a stop pin). The station parts cost about USD 394 from the bill of materials.
+The prototype is one net-hauling station for a 30 m span: a steel post on the bank held back by two rope stays to two screw ground anchors, a block at the post's head, a steel stake driven into the bed with a turning collar and a second block, a loop of floating rope between the blocks, two net bridles with weak links, and a timber clearing table. Seven components are made (the post, stake, collar and table by welding, drilling and carpentry; the stays, loop and bridles by rope work) and seven are bought (blocks, swivel rings, jam cleats, screw anchors, turnbuckles, shackles and a stop pin). The station parts cost about USD 399 from the bill of materials.
 
 ## 2. What changed to make it buildable
 
@@ -43,7 +51,7 @@ The prototype is one net-hauling station for a 30 m span: a steel post on the ba
 | Screw anchors | Not defined | Two anchors with 250 mm helixes, screwed in line with the stays | The rods stay in tension; each holds about twice its load |
 | Far stake | A steel or hardwood stake | A 76.1 mm steel tube with a welded point and cap, 5.0 m long, driven 3.5 m into the bed | A lighter stake bends at the design load; a shallower one can lean over in very soft mud |
 | Far pulley and swivel | A pulley with a swivel | A collar that turns on the stake, resting on a stop pin that moves with the water level, with a bought block on a shackle | The collar is the swivel; the pin follows the season |
-| Rope loop | An endless spliced loop | Two halves joined by two swivel rings, one end of each half spliced and the other hitched | The loop length can change with the shoreline; the rings are the clip points and end stops |
+| Rope loop | An endless spliced loop | Two halves joined by two swivel rings, both ends of each half eye-spliced (the second at installation, D-S6) | The loop length can change with the shoreline; the rings are the clip points and end stops |
 | Net clips | Quick clips | A bridle at each net end with a weak link and a snap hook | A seized net cannot pull more than about 700 N on the loop |
 | Clearing table | A raised table or platform | A slatted timber table with lip boards, landward of the post | Keeps the net on the table, 5 m or more from the water |
 
@@ -60,8 +68,8 @@ The prototype is one net-hauling station for a 30 m span: a steel post on the ba
 1. Cut the tube 992 mm long with square ends. Cut the foot plate 350 mm square and mark its centre.
 2. Cut the spike 400 mm long and grind a point over the last 40 mm. Weld it square under the foot plate centre, all round.
 3. Stand the tube on the plate centre, square within 1 degree in both directions, and weld all round. Weld the 60 mm cap disc on the top.
-4. Cut the pad eye from 8 mm plate, 84 by 100 mm, and drill an 18 mm hole 64 mm from the post's centre line and 950 mm above the ground. Weld it to the tube on the side that will face the water, top edge flush with the top of the tube.
-5. Cut two stay lugs, 84 by 80 mm, with 15 mm holes 960 mm above the ground. Weld them to the back of the tube, each turned 22 degrees off straight back, one to each side.
+4. Cut the pad eye from 8 mm plate, 64 by 100 mm, so its end is 88 mm from the post's centre line, and drill an 18 mm hole 64 mm from the post's centre line and 950 mm above the ground. Weld it to the tube on the side that will face the water, top edge flush with the top of the tube.
+5. Cut two stay lugs, 60 by 80 mm (ends 84 mm from the post's centre line), with 15 mm holes 960 mm above the ground. Weld them to the back of the tube, each turned 22 degrees off straight back, one to each side.
 6. Cut the cleat bar 130 by 500 mm and cut a 48.9 mm hole 40 mm from its back edge. Drill four 9 mm holes for the cleats (170 mm and 230 mm either side of the post's centre line, 40 mm in front of it) and one 15 mm tie-off hole. Slide it down the tube until its top is 850 mm above the ground, square to the pad eye, and weld all round.
 7. Clean and paint with zinc-rich paint.
 
@@ -135,10 +143,10 @@ The prototype is one net-hauling station for a 30 m span: a steel post on the ba
 
 **How to make it.**
 
-1. Cut four legs 50 by 50 by 750 mm, two long rails 75 by 25 by 1,150 mm, two end rails 50 by 75 by 475 mm, five top boards 100 by 25 by 1,200 mm and two lip boards 25 by 75 by 1,200 mm.
-2. Screw the long rails to the outside of the legs, 50 mm in from each end, and the end rails between them.
+1. Cut four legs 50 by 50 by 825 mm, two long rails 75 by 25 by 1,150 mm, two end rails 50 by 75 by 550 mm, five top boards 100 by 25 by 1,200 mm and two lip boards 25 by 75 by 1,200 mm.
+2. Screw the long rails to the outside of the legs, flush with the legs' tops, with two 50 mm screws at each leg; fit the end rails inside the legs, between the long rails, with two 80 mm screws through each leg.
 3. Screw the top boards across the rails with 25 mm gaps so water drains.
-4. Screw the lip boards on edge along both long sides.
+4. Screw the lip boards on edge along both long sides with four 100 mm screws each, down through the outer top board.
 
 **How it fits the parts next to it.** It stands free on the bank, landward of the post and on the side away from the stays.
 
@@ -152,8 +160,8 @@ The prototype is one net-hauling station for a 30 m span: a steel post on the ba
 
 **How to make it.**
 
-1. Cut two lengths of 1,800 mm; tape and melt the ends.
-2. Splice an eye round a thimble at each end with five full tucks, so the eye centres are 1,440 mm apart.
+1. Cut two lengths of 1,500 mm; tape and melt the ends.
+2. Splice an eye round a thimble at each end with five full tucks, so the thimble centres are 1,110 mm apart. With the two shackles and the turnbuckle at mid take-up, this fills the 1,440 mm from the lug hole to the anchor eye.
 
 **How it fits the parts next to it.** One eye is shackled to a post lug (Figure 3); the other is shackled to the turnbuckle on the anchor eye.
 
@@ -173,13 +181,13 @@ The prototype is one net-hauling station for a 30 m span: a steel post on the ba
 
 1. Cut two halves of 55 m from the 120 m coil; tape and melt all ends.
 2. Splice a soft eye, about 80 mm long, round one eye of a swivel ring at one end of each half, with five tucks.
-3. The plain end of each half is tied to the other ring with a round turn and two half hitches when the loop is reeved (step 9), so its length suits the span.
+3. The plain end of each half is spliced round the other ring when the loop is reeved (step 9), at the length that suits the span. Never tie it with a hitch: a hitch keeps only about 60 % of the rope's strength (D-S6).
 
 **How it fits the parts next to it.**
 
 ![Close-up: swivel ring, loop eyes and net bridle](05-build-plan/joint-08.png)
 
-*Figure 9. The two loop halves meet at each swivel ring, one spliced and one hitched. The net bridle's snap hook clips onto ring 1.*
+*Figure 9. The two loop halves meet at each swivel ring, each on its own spliced eye. The net bridle's snap hook clips onto ring 1.*
 
 **Check before moving on.** Each ring turns freely under a firm hand pull; each splice has five full tucks.
 
@@ -208,6 +216,7 @@ The prototype is one net-hauling station for a 30 m span: a steel post on the ba
 - **Turnbuckles (2).** Rated M12 jaw-and-jaw, working load limit at least 500 kg.
 - **Shackles (6).** Rated 10 mm bow shackles, working load limit at least 750 kg; wire every pin shut (mousing).
 - **Stop pin.** An M12 by 100 mm stainless bolt with a nyloc nut and two washers, plus a spare.
+- **Bank-edge board (made, line 18).** A smooth hardwood board 250 x 600 x 25 mm, every edge rounded to about 10 mm, planed smooth on top. It is set flush into the bank lip under both loop legs (step 10), so the catch and weed slide over the edge instead of dragging in the mud (BKH-DEC-001 O-2).
 - **Stake driving cap (tool).** A 300 mm length of 88.9 mm tube with a 10 mm cap plate and two handles, made to fit over the stake top.
 
 ## 4. Putting it together
@@ -236,7 +245,7 @@ Shackle each stay to a post lug and to a turnbuckle on an anchor eye. Take up bo
 
 ![Step 4](05-build-plan/step-04.png)
 
-Two M8 bolts each, with the V pointing toward the water.
+Two M8 x 35 bolts each, with washers and nyloc nuts, the V pointing toward the water.
 
 ### Step 5: Hang the near block
 
@@ -248,13 +257,13 @@ Shackle through the pad eye and the block's swivel eye; wire the pin.
 
 ![Step 6](05-build-plan/step-06.png)
 
-From a boat held on two anchors, or standing on the dry bed at low water, stand the stake on its point 30 m from the post on the line between the anchors. The stake is 5.0 m long, so two people lift it upright together. In soft mud it sinks part of the way under its own weight; push and twist it down as far as it will go. Then fit the driving cap and drive with a post driver or sledge until the paint ring, 3.5 m above the point, reaches the bed. Keep it upright within 2 degrees.
+From a boat held on two anchors, or standing on the dry bed at low water, stand the stake on its point 30 m from the post on the line between the anchors. The stake is 5.0 m long and weighs 33.2 kg, so nobody holds it upright at arm's length over the side: pass the 10 m offcut of the loop coil (line 6) through the stake's top cross hole, rest the stake against the boat's side with its point down, and let it down onto its point on the rope, two people on the rope, one of them steadying the stake below the top (BKH-DEC-001 O-7). Pull the rope out of the hole once the stake stands. In soft mud it sinks part of the way under its own weight; push and twist it down as far as it will go. Then fit the driving cap and drive with a post driver or sledge until the paint ring, 3.5 m above the point, reaches the bed. Keep it upright within 2 degrees.
 
 ### Step 7: Fit the stop pin and the collar
 
 ![Step 7](05-build-plan/step-07.png)
 
-Choose the hole that puts the far block about 200 mm above the day's water. Fit the bolt and nyloc nut through it, then slide the collar down the stake onto the pin.
+Choose the hole that puts the far block about 200 mm above the day's water. Where the bed's vane reading is under 10 kPa, never use the top hole: if the water at the stake is deeper than 1.0 m, take the loop out (D-S7). Fit the bolt and nyloc nut through it, then slide the collar down the stake onto the pin.
 
 ### Step 8: Hang the far block
 
@@ -266,13 +275,13 @@ Shackle through the collar lug and the block's swivel eye; wire the pin.
 
 ![Step 9](05-build-plan/step-09.png)
 
-From the boat, run the first half from the bank round the far block and back to the bank; run the second half round the near block. Tie each plain end to the other half's ring with a round turn and two half hitches, so that ring 1 lies about 450 mm in front of the near block when ring 2 lies about 450 mm short of the far block and the loop is snug but not tight. Coil and seize any surplus at the ring.
+From the boat, run the first half from the bank round the far block and back to the bank; run the second half round the near block. Splice each plain end round the other half's ring, five tucks, so that ring 1 lies about 450 mm in front of the near block when ring 2 lies about 450 mm short of the far block and the loop is snug but not tight. Coil and seize any surplus at the ring.
 
 ### Step 10: Set up the clearing table
 
 ![Step 10](05-build-plan/step-10.png)
 
-Landward of the post on the side away from the stays, level on firm ground.
+Landward of the post on the side away from the stays, level on firm ground. Then cut a 25 mm deep recess in the bank lip where the two loop legs cross the edge and set the bank-edge board in it, flush with the ground and its rounded nose at the water's edge (line 18).
 
 ### Step 11: Clip the net to ring 1
 
@@ -288,7 +297,7 @@ Stack the net on the table, far end on top. Clip the far-end bridle to ring 1 an
 | Far stake | R5 | Pull the collar toward the bank to 1.5 kN from the boat | The stake moves less than 25 mm at the collar and springs back |
 | Weak link | R10 | Pull three links from the batch | Each releases between 500 and 700 N |
 | Loop runs | R2 | Pull each leg by hand over a full cycle | The loop runs freely; no ring reaches a block; nothing rubs a cheek |
-| Set and haul | R1, R3 | Set and haul a 30 m net from the bank with a spring scale on the hauling end | Nobody enters the water; peak pull under 250 N |
+| Set and haul | R1, R3 | Set and haul a 30 m net from the bank with a spring scale on the hauling end, once with the bank-edge board in place and once with it lifted out (O-2) | Nobody enters the water; peak pull under 250 N; the two peak pulls recorded |
 | Timing | R6 | Time a haul and reset | Under 10 minutes without clearing fish |
 | Working spot | R11 | Measure from where the fisher stands to the water's edge | 5 m or more |
 

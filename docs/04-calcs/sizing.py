@@ -72,6 +72,11 @@ ROWS.append(("R3", "Peak pull under 250 N", f"{F_haul:.0f} N (estimate)", "Met o
 # setting: pulling the loop carries the net's far end out and draws the net off the table
 F_set = (F_bed + 0.5 * RHO_W * 0.5 ** 2 * 0.1 + 2 * span * P["rope_kg_m"] * g * 0.3 + 5.0) / eta_block ** 2
 out("set_pull", F_set, "N", "loop pulled at 0.5 m/s with the net paying out behind the far end")
+# sensitivity (independent review, 2026-10-25): a 0.3 m/s current across the net while hauling, and wetter, stickier mud
+F_cur = F_slope + 0.5 * (0.5 * RHO_W * (v_haul + 0.3) ** 2 * CdA_net + F_bed) + F_loop_follow
+out("peak_haul_pull_current", F_cur, "N", "with a 0.3 m/s current (relative speed 0.7 m/s); PR-003 at risk above this")
+F_mu = m_slope * g * (0.9 * math.cos(th) + math.sin(th)) + 0.5 * (F_drag + F_bed) + F_loop_follow
+out("peak_haul_pull_mu09", F_mu, "N", "with friction 0.9 on the bank edge")
 
 # ----------------------------------------------------------------------------- C. weak link (R10) and design loads
 print("\nC. Weak link and design loads")
@@ -87,6 +92,11 @@ out("far_end_design_load", F_far, "N", "both legs at the link's highest release,
 ROWS.append(("R10", "Weak link releases 500 to 700 N", f"{wl_min:.0f} to {wl_max:.0f} N", "Met on paper; calibrate at TRL 4", "C"))
 F_bank = 3000.0
 out("bank_design_load", F_bank, "N", "R4: horizontal at the near block; covers 2 x link release, debris and a slipped cleat")
+# the net's drag in a current reaches the link's lowest release at this speed (clean net; weed and fish lower it)
+A_twine = 30 * 2 * 0.0125 + 30 * 0.012 * 2
+out("current_to_release_link", math.sqrt(wl_min / (0.5 * RHO_W * 1.2 * A_twine)), "m/s",
+    "clean 30 m net set across the flow; the station is for still to slow water (0.3 m/s design)")
+out("hauling_load_on_far_link", F_loop_follow, "N", "hauling is by the net's near end by hand, so the far link only drags the loop")
 
 # ----------------------------------------------------------------------------- D. bank station (R4)
 print("\nD. Bank post, stays and screw anchors (R4)")
@@ -102,7 +112,7 @@ out("stay_length", dl / 1000, "m", "lug hole to anchor eye")
 out("stay_elevation_deg", math.degrees(math.asin(-u[2])), "deg", "")
 T_stay = (F_bank / 2) / (-u[0])
 out("stay_tension", T_stay, "N", "each stay, both sharing the 3 kN pull along the line")
-out("stay_rope_factor", P["stay_mbs"] * 0.85 / T_stay, "x", "10 mm polyester 22 kN, 85 % at the eye splice")
+out("stay_rope_factor", P["stay_mbs"] * 0.85 / T_stay, "x", "10 mm three-strand polyester 15.6 kN (1,590 kg, D-S5), 85 % at the eye splice")
 V_post = 2 * T_stay * (-u[2])
 out("post_compression", V_post, "N", "")
 E, ro = 210000.0, P["post"][0] / 2
@@ -130,8 +140,29 @@ pl, ph, pt, phole = P["pad_eye"]
 edge = ro + pl - P["eye_r"]
 tau_pad = (2 * F_bank) / (2 * pt * (edge - phole / 2))
 out("pad_eye_shear", tau_pad, "MPa", "block load 2 x 3 kN, two shear planes beyond the hole")
-blk_load = 2 * F_bank / 2 + F_bank / 2
 out("block_load_factor", P["block_wll"] / (2 * 1500.0), "x", "block working load limit over two legs at 1.5 kN")
+# pin-connected plates, EN 1993-1-8 Table 3.9 type A (given thickness): end distance beyond the hole edge in the
+# direction of the load a >= F gM0 / (2 t fy) + 2 d0 / 3; side distance c >= F gM0 / (2 t fy) + d0 / 3; S235, gM0 1.0,
+# design load 1.5 x the working load (D-S1: the pad eye was 60 mm radial, a = 11.2 mm against 13.2 mm needed)
+fy, g_f = 235.0, 1.5
+
+
+def pin_plate(name, F, t, d0, a_have, c_have):
+    base = g_f * F / (2 * t * fy)
+    a_req, c_req = base + 2 * d0 / 3, base + d0 / 3
+    out(f"{name}_end_distance", a_have, "mm", f"needs {a_req:.1f} mm (EN 1993-1-8 Table 3.9, 1.5 x {F / 1000:.2f} kN)")
+    out(f"{name}_side_distance", c_have, "mm", f"needs {c_req:.1f} mm")
+    return min(a_have / a_req, c_have / c_req)
+
+
+r_pad = pin_plate("pad_eye", F_bank, pt, phole, ro + pl - P["eye_r"] - phole / 2, ph / 2 - phole / 2)
+out("pad_eye_geometry_ratio", r_pad, "x", "1 or more meets Table 3.9")
+ll, lh, lt, lhole = P["lug"]
+r_lug = pin_plate("stay_lug", T_stay, lt, lhole, ro + ll - D["lug_r"] - lhole / 2, lh / 2 - lhole / 2)
+r_col = pin_plate("collar_lug", F_far, 8.0, 18.0, P["collar"][0] / 2 + 60 - P["far_eye_r"] - 9.0, 40 - 9.0)
+out("pin_plates_min_ratio", min(r_pad, r_lug, r_col), "x", "pad eye, stay lugs and collar lug")
+out("stay_eye_spacing", D["stay_eyes"], "mm", "thimble centre to thimble centre; lug to anchor eye less shackles and turnbuckle (D-S3)")
+out("stay_cut_length", D["stay_eyes"] + 2 * (math.pi * 13.5 + 160), "mm", "two eyes round 13.5 mm thimbles plus five tucks each")
 
 # ----------------------------------------------------------------------------- E. far stake (R5)
 print("\nE. Far stake lateral capacity (R5), Broms short free-head pile in clay")
@@ -153,22 +184,45 @@ def broms(c, dd, L, e):
     return H
 
 
+def broms_long(c, dd, e, My):
+    """Broms long free-head pile in clay: the stake yields at its plastic moment My (N m) before the soil fails;
+    My = H (e + 1.5 d + 0.5 f), f = H / (9 c d)."""
+    a_, b_ = 1 / (2 * 9 * c * dd), e + 1.5 * dd
+    return (-b_ + math.sqrt(b_ * b_ + 4 * a_ * My)) / (2 * a_)
+
+
 dd = P["stake"][0] / 1000
 e = (P["water_depth"] + P["z_far_above_water"]) / 1000
 L_emb = P["embed"] / 1000
+so_, sw = P["stake"]
+Zp = (so_ ** 3 - (so_ - 2 * sw) ** 3) / 6                     # plastic modulus of the tube, mm3
+My = 355.0 * Zp / 1000.0                                      # S355 plastic moment, N m
+out("stake_plastic_moment", My, "N m", f"S355, plastic modulus {Zp / 1000:.1f} cm3")
 for name, c in (("soft", su_soft), ("very_soft", su_vsoft)):
-    H = broms(c, dd, L_emb, e)
-    out(f"stake_capacity_{name}", H, "N", f"su {c/1000:.0f} kPa, 76.1 mm tube, {L_emb:.1f} m embedded, load {e:.1f} m above the bed")
+    Hs = broms(c, dd, L_emb, e)
+    Hl = broms_long(c, dd, e, My)
+    H = min(Hs, Hl)
+    out(f"stake_short_pile_{name}", Hs, "N", f"soil fails first (short pile), su {c/1000:.0f} kPa, {L_emb:.1f} m embedded, load {e:.1f} m above the bed")
+    out(f"stake_long_pile_{name}", Hl, "N", "stake yields first (long pile, D-S2)")
+    out(f"stake_capacity_{name}", H, "N", "the lesser of the two governs")
     out(f"stake_factor_{name}", H / 1500.0, "x", "on the 1.5 kN of R5; 2 or more taken as 'holds'")
 ROWS.append(("R5", "Holds 1.5 kN horizontal in soft mud",
              f"factor {R['stake_factor_soft']:.2f} at su 10 kPa; {R['stake_factor_very_soft']:.2f} at su 5 kPa ({L_emb:.1f} m embedded)",
              "Met on paper in soft and very soft mud; pull test at TRL 4", "E"))
+# highest pin hole: the far block one hole (200 mm) above the design level, water 1.2 m deep (independent review)
+e_hi = e + P["pin_pitch"] / 1000
+for name, c in (("soft", su_soft), ("very_soft", su_vsoft)):
+    Hh = min(broms(c, dd, L_emb, e_hi), broms_long(c, dd, e_hi, My))
+    out(f"stake_factor_top_hole_{name}", Hh / 1500.0, "x", f"water {P['water_depth'] / 1000 + 0.2:.1f} m deep, load {e_hi:.1f} m above the bed")
+out("top_hole_rule", 1.0, "m", "D-S7: in very soft beds (vane 5 to 10 kPa) the top hole is not used; water deeper than 1.0 m at the stake takes the loop out, as for a flood")
 so_, sw = P["stake"]
 Z = math.pi / 32 * (so_ ** 4 - (so_ - 2 * sw) ** 4) / so_
 for name, c in (("soft", su_soft), ("very_soft", su_vsoft)):
     f = 1500.0 / (9 * c * dd)
     M = 1500.0 * (e + 1.5 * dd + 0.5 * f)
     out(f"stake_stress_{name}", M * 1000 / Z, "MPa", f"at 1.5 kN; S355 tube factor {355 / (M * 1000 / Z):.1f}")
+    M_hi = 1500.0 * (e_hi + 1.5 * dd + 0.5 * f)
+    out(f"stake_stress_top_hole_{name}", M_hi * 1000 / Z, "MPa", "at 1.5 kN with water 1.2 m deep")
 H25 = broms(su_vsoft, dd, 2.5, e)
 out("previous_embed_2.5_very_soft", H25 / 1500.0, "x", "factor at the TRL 3 embedment of 2.5 m, before decision 14A")
 m_stake = 33.2
@@ -180,7 +234,8 @@ print("\nF. Loop rope strength and durability (R7)")
 T_leg = max(wl_max, 0.5 * F_bank)
 uv = 0.5
 out("rope_factor_new", P["rope_mbs"] * P["splice_eff"] / T_leg, "x", "at the larger of link release and half the bank load")
-out("rope_factor_end_season", P["rope_mbs"] * P["splice_eff"] * uv / T_leg, "x", "after losing half its strength to sun over a season (assumption)")
+out("rope_factor_end_season", P["rope_mbs"] * P["splice_eff"] * uv / T_leg, "x", "after losing half its strength to sun over a season (assumption); both ends of each half spliced (D-S6)")
+out("rope_factor_end_season_hitched", P["rope_mbs"] * 0.6 * uv / T_leg, "x", "the earlier round turn and two half hitches (about 0.6): below 5, so D-S6 splices the second eye too")
 passes = 2 * 2 * 180
 out("sheave_passes_season", passes, "", "two cycles a day, both directions, 180 days")
 ROWS.append(("R7", "One season without rope or pulley failure", f"rope factor {R['rope_factor_end_season']:.1f} after UV loss",
@@ -206,7 +261,7 @@ steps = {"unscrew two anchors": 4.0, "lift out post and spike": 2.0, "carry up t
          "set out new spot": 3.0, "screw in two anchors": 6.0, "stand post, fit and tension stays": 4.0}
 t_reloc = sum(steps.values())
 out("relocation_time", t_reloc, "min", "; ".join(f"{k} {v:.0f}" for k, v in steps.items()))
-out("loop_retie_time", 6.0, "min", "retie both ring knots to the new length, extra to R9")
+out("loop_resplice_time", 15.0, "min", "re-splice both ring eyes to the new length when the span changes (D-S6), extra to R9")
 ROWS.append(("R9", "Relocated by two people in under 30 min", f"{t_reloc:.0f} min (estimate)", "Met on paper (estimate)", "H"))
 
 # ----------------------------------------------------------------------------- I. cost (R8) and value engineering
@@ -237,6 +292,7 @@ ROWS.insert(1, ("R2", "At least 30 m between pulleys; stretch 50 m", "30 m desig
                 "Met on paper", "A"))
 ROWS.append(("R11", "Working spot at least 5 m from the water's edge", f"{R['working_spot_to_water']:.1f} m",
              "Met by layout", "J"))
+out("team_lift_per_person", m_stake / 2, "kg", "two people; the stake is stood up against the boat side and let down on a lowering rope through its top cross hole, so no one holds it at arm's length over the side (BKH-DEC-001 O-7, decided by Amish 2026-10-25)")
 masses = {"bank post weldment": 17.2, "far stake": m_stake, "two screw anchors": 14.3, "clearing table": 26.4,
           "swivel collar": 1.6, "two blocks": 2 * 1.1, "loop rope (110 m)": 110 * P["rope_kg_m"]}
 out("heaviest_lift", max(masses.values()), "kg", "far stake (two people from a boat)")

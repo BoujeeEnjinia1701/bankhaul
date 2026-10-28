@@ -1,5 +1,137 @@
 # Review note: BankHaul
 
+## Session 2026-10-25: decisions
+
+Amish, 2026-10-25 10:19 CT, after a report listing each repo's proposed decisions and recommendations: "i concur with your recommendations". Every decision that carried a recommendation is recorded as decided with the option recommended. All eight open decisions carried one.
+
+### Decided by Amish, 2026-10-25
+
+- **O-1 concept:** option A. `project.yaml` `concept_chosen: "A"`; `CHOSEN` comment in `cad/src/model.py`; BKH-DDR-004 v0.2 decided; BKH-OPT-001 v0.2; PRC, PRS, PLN, README.
+- **O-2 bank-edge board:** new part in the D3 model, `_edge_board()` in `cad/src/model.py`: smooth hardwood 250 x 600 x 25 mm, edges rounded 10 mm, set flush into the bank lip under both loop legs (option A now 161 parts). New `bom/bom.csv` line 18, USD 5 (estimate, as recommended). Station USD 394 to **USD 399**, prototype USD 404 to **USD 409** (USD 1,391 under the USD 1,800 target), USD 269 to **USD 274** a loop with a shared bank post. Build plan section 3.8 (the board), step 10 (setting it) and the set-and-haul check (pull measured with and without it). The board is not in the legacy grouped components, so the GA drawings and making sketches do not show it; it appears in `components("A")`, the STEP export and the product model.
+- **O-3:** B2 and C1 fixes stay on paper only. No change.
+- **O-4:** site render on the bank as the hero. No change.
+- **O-5:** `0003-amish-requirement-decisions.md` kept as BKH-DDR-003; `0003-requirement-decisions-round2.md` marked Superseded (v0.2).
+- **O-6:** indicative USD 22 a block kept, to confirm locally (MKT, FEA notes).
+- **O-7 far stake lift:** the stake is stood against the boat side and let down on the 10 m offcut of the loop coil through its top cross hole, two people on the rope (build plan step 6; BOM line 6 note). PR-014 **at risk to met on paper** (16.6 kg each, to confirm in the TRL 4 drill); STEM S30 text (still Plausible); `sizing.py` note; CAL, RSK H6.
+- **O-8:** D-S7 kept (3.5 m drive). No change.
+- Documents: BKH-DEC-001 v0.4, BKH-PRS-001 v0.5, BKH-CAL-001 v0.4, BKH-BLD-001 v0.4, BKH-STM-001 v0.2, BKH-RSK-001 v0.2, BKH-FEA-001 v0.2, BKH-MKT-001 v0.2, BKH-PLN-001 v0.2, BKH-PRC-001 v0.5, BKH-OPT-001 v0.2, BKH-DDR-004 v0.2, README, concept media (key figures, regenerated).
+
+### Still open
+
+None of this round's decisions. PR-008 stays not met (local-materials station about USD 98 against USD 80, to cost with the partner).
+
+### Checks
+
+Run in this order on 2026-10-25 after the last edit to `cad/src/` (`model.py`, `concept_media.py`) and `bom/bom.csv`:
+
+- `python3 docs/04-calcs/sizing.py`: runs; station USD 399, prototype USD 409, USD 274 a loop with a shared post.
+- `python3 docs/04-calcs/stem_check.py`: open, 21 within, 15 plausible, 2 fail with a fix proposed (B2, C1, options not carried forward, kept on paper by O-3).
+- `python3 .kit/trace.py`: RTM regenerated, 0 gaps.
+- `python3 .kit/cad_check.py --export`: PASS at D3 (option A with the bank-edge board).
+- `python3 .kit/render.py` and `python3 .kit/render.py --check`: pass, no FAIL.
+- `python3 -m reuse lint`: compliant.
+- Em and en dash scan outside `.kit/` and `LICENSES/`: none.
+- `python3 cad/src/concept_media.py` regenerated the concept sheet with the new cost; it also wrote a 34 MB `media/model.glb`, so the committed 3.7 MB web model (unchanged geometry; the board is not in the grouped concept components) was kept.
+
+## Session 2026-10-24: kit 1.9.1 upgrade
+
+Carried out on 2026-10-25 on Amish's instructions of 2026-10-24 ("Kit 1.9.1 rollout - proceed to rollout across the other repos", "I want detailed TRL3 CAD - and in fact want to ensure the CAD is detailed across all TRLs", "Detail every option") and his standing STEM fix instruction of 2026-10-23. Kit 1.9.1 was installed by the coordinator. Option A, the design of 2026-10-03, keeps its working principle and its main dimensions; seven details changed under the fix rule (below), each recorded in BKH-DEC-001.
+
+### What was added or changed
+
+- `docs/01b-stem-check.md` (BKH-STM-001 v0.1) and `docs/04-calcs/stem_check.py` (writes `stem_results.csv` and refreshes the STM table): 38 claims for options A, B and C; `stem_check: open`.
+- `docs/02a-concept-options.md` (BKH-OPT-001 v0.1) and `docs/decisions/0004-concept-selection.md` (BKH-DDR-004): options A, B and C, first-order numbers and weighted scoring.
+- `docs/03a-user-requirements.md` (BKH-URS-001, 14 URs); `docs/03-requirements.md` is now BKH-PRS-001 v0.4 (R1 to R11 as PR-001 to PR-011 with a "Was" column, PR-012 to PR-016 new); `docs/03b-traceability.md` (BKH-RTM-001, generated, 0 gaps).
+- `docs/07-regulatory.md`, `08-feasibility.md`, `09-risk.md` (project risks, preliminary hazard analysis, first-pass design FMEA), `10-market.md`, `11-plan.md` (REG, FEA, RSK, MKT, PLN v0.1). Prices and advice cited and dated 2026-10-25: Rope Services UK 12 mm polysteel GBP 0.55 a metre; GS Products 4 inch swivel block GBP 27.52 ex VAT; GME Supply earth screw anchor USD 291.99; Marlow 10 mm three-strand polyester 1,590 kg and 12 mm 12-strand polysteel 2,740 kg; Northern Territory Be Crocwise, "Stand at least five meters back from the water's edge while fishing". No bank-hauled net product and no enclosure cost were found; both are "to assess".
+- PRB v0.3 (users-and-needs and stakeholders tables), PRC v0.4, CAL v0.3 (`sizing.py`: pin-plate checks, long-pile case, top pin hole, stay chain, haul sensitivities, limiting current, both splices), BLD v0.3, DEC v0.3, `bom/bom.csv` (lines 1, 4, 5, 6, 15 respecified; total unchanged at USD 394), README (stage badge, links line, STEM check and Concept options sections, the broken Zenodo badge replaced by the concept DOI badge), `project.yaml` (`stage: P3`, `stem_check: open`, `concept_options`, `concept_chosen: "A (proposed)"`, `trl_evidence` extended).
+- `cad/src/model.py` rebuilt to the kit 1.9 interface (`PARAMS`, `OPTIONS`, `PRINCIPLES`, `CHOSEN = "A"`, `OPTION_VIEWS` with `ground_z: 0`, `ALLOWED_CONTACTS`, `components(option)`); every part is a `cad_parts.part()` dict with a material, a kind and, for option A, its BOM line, plus a legacy "key" so `build_components()`, `far_parts()`, `table_parts()` and `context_shapes()` still feed `sizing.py`, `sheets.py`, `build_plan_media.py` and `concept_media.py`. Option A now has every bolt, nut and washer, shackle bow and pin, thimble, turnbuckle jaw, clevis and split pin, block cheek, sheave, axle and swivel head, the welds as beads, the four-plate stake point, pilot-holed table timbers with 44 screws, and rope eyes threaded through the swivel eyes. `components(option)` builds the 7 m picture layout used by every picture and by `cad/fidelity.json`; `components(option, short=False)` builds the 30 m design case.
+- `cad/src/bkh_parts.py` (new, repo-specific): frame, rope and weld helpers; shackle, thimble, turnbuckle, swivel block, jam cleat, screw anchor and wire rope grip at catalogue envelope.
+- `cad/src/product_model.py` rebuilt from `components(CHOSEN)` plus an earth bank "(site)", a net on the table and a 1.75 m mannequin "(scale)" standing on the bank. `RENDER_VIEWS`: **hero** (outdoor site, mud, still water), **studio**, **exploded**, **detail** (far end).
+- `cad/src/options_preview.py` (new, repo-specific): a provisional shaded `media/options.png` from the D3 models, labelled as a preview, because `render.py --check` needs the file and this rollout does not run `.kit/options.py`.
+- Regenerated: `cad/fidelity.json`, `cad/step/A/` (one STEP per made or bought part of option A), `cad/step/{A,B,C}-assembly.step`, legacy STEP and STL (tolerance 0.15 mm, was 0.5), BKH-DWG-001 to 003 Rev P4, making sketches BKH-DWG-101 to 107, all build plan pictures, concept media (BKH-DWG-010, hero, exploded, flow, `model.glb`, viewer).
+
+### STEM verdicts and fixes
+
+21 within known science, 15 plausible, 2 fail with a fix proposed (B2, C1, both in options not carried forward), 0 fail. Fixed in option A under the standing instruction and recorded in BKH-DEC-001, none changing the working principle, pitch or scope, none adding cost beyond about USD 1:
+
+- **D-S1** pad eye 64 mm radial (was 60): the hole's end distance was 11.2 mm against 13.2 mm in EN 1993-1-8 Table 3.9 at 1.5 x 3 kN; now 15.2 mm.
+- **D-S2** far stake capacity is the lesser of Broms' short and long pile: 4.2 kN in soft mud (factor 2.77), not 6.1 kN (4.05); very soft mud unchanged at 2.03 and governs. No design change.
+- **D-S3** back-stays 1,110 mm between thimbles (drawn 1,440 mm), cut 1.52 m, so the chain of shackles and turnbuckle closes; found by the D3 model.
+- **D-S4** fits found by the D3 model: table legs 825 mm, end rails 550 mm inside the legs, rail and lip screws, cleat bolts M8 x 35.
+- **D-S5** (found by the review) stays checked at the rated 1,590 kg of 10 mm three-strand polyester, not 22 kN: factor 6.4.
+- **D-S6** (found by the review) both ends of each loop half eye-spliced; the hitch kept about 60 % and gave 4.0 against 5 at the season's end.
+- **D-S7** (found by the review) the stake's top pin hole is not used in very soft beds; with 1.2 m of water the factor there was 1.91.
+
+### Independent review
+
+No subagent tool was available, so the reviewer ran as a separate headless Claude session (`claude -p`) in a scratch folder holding only the STEM check, CAL, PRS and `sizing.py`. It reproduced the arithmetic and refuted or weakened: the stake at the highest water level (it assumed 2.0 m; the top pin hole gives 1.2 m, still a failure in very soft mud: D-S7), the stays' rope strength (D-S5), the loop's knot efficiency (D-S6; its lower rope strength did not hold, Marlow rates 12 mm polysteel higher than assumed), the hand pull in a current (241 N, now stated), the limiting current for the weak link (0.76 m/s, now stated), the team lift (PR-014 now at risk), options B2 and C4. Full table in BKH-STM-001, Table 3.
+
+### Concept options
+
+| Option | Score (of 220) | Parts in `cad/fidelity.json` | Made or bought | Fasteners | Welds | Mass, fidelity check (picture layout) | Mass, design case |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| A, running rope loop (current design) | 178 | 160 | 69 | 76 | 15 | 102.0 kg | 107.7 kg |
+| B, overhead cableway | 139 | 175 | 73 | 82 | 20 | 201.5 kg | 213.1 kg |
+| C, counterweighted shore lift net | 149 | 127 | 59 | 34 | 34 | 394.0 kg | 394.0 kg |
+
+All three pass D3 (no bare primitives, no interference over 5 mm3). A leads C by 16 %, so A is recommended, proposed, awaiting Amish. Masses use the kit densities; BKH-CAL-001 J gives 106 kg for option A from catalogue figures.
+
+### Requirements not met
+
+- **PR-008 not met**: the local-materials station is about USD 98 (first-order estimate) against USD 80; the steel trial station is USD 394, accepted for TRL 4 by decision 15A.
+- **PR-014 at risk**: the 33.2 kg stake is 16.6 kg each for two people, but a team lift in a boat counts for less (O-7).
+- PR-003 is met in still water (about 200 N) and thin in a 0.3 m/s current (241 N); PR-016 (authority agreement) is verified at TRL 4.
+- BOM total USD 394 for the station (USD 404 with the driving cap) against `budget_usd` 1,800, unchanged.
+
+### Decisions proposed, awaiting Amish
+
+1. **O-1 concept selection:** A (178), C (149), B (139); recommended A. The repo stays on A.
+2. **O-2 graft from C:** a smooth board or roller at the bank edge, where 157 N of the 200 N peak comes from.
+3. **O-3:** implement the fixes of options B (guy anchor) and C (balance) only if one is chosen.
+4. **O-4 product render site:** the model is lifted 560 mm so the photoreal ground is the lake bed under 60 mm of still water and the bank is a site part; this departs from "ground level at z = 0" so the water can show.
+5. **O-5:** two decision records carry the ID BKH-DDR-003; keep one and supersede or renumber the other.
+6. **O-6 block price:** USD 22 in the BOM against about USD 37 found in the UK.
+7. **O-7 lifting the far stake** (PR-014): a lowering rope from the boat, with two people.
+8. **O-8:** a 4.0 m drive in very soft beds instead of D-S7's limit (3.5 m was Amish's decision 14A).
+9. D-S1 to D-S7 were decided under the standing instruction and can be reversed.
+
+### Safety
+
+No new hazard from the fixes. The review added three hazards to BKH-RSK-001: someone going to the water to recover a released net or free a fouled block (H10), an animal striking the loop or stake (H11) and loads on the loop itself that no weak link limits (H8). The station is for still to slow water: a clean net releases its weak link at about 0.76 m/s. BankHaul reduces time in the water; it does not protect anyone from a crocodile that leaves the water.
+
+### Kit and environment issues met
+
+1. No subagent tool was available to this agent; the independent reviewer ran headless with `claude -p` on a folder holding only the four files.
+2. `render.py --check` requires `media/options.png`, which only `.kit/options.py` (Cycles) or `--massing` (not allowed by the rollout) can write; worked around with `cad/src/options_preview.py`, which the coordinator's render overwrites.
+3. `.kit/stem_check.py` labels every plausible row "Plausible, to confirm at TRL 3", even in a TRL 3 repo whose plausible rows can only be closed by TRL 4 or later field data.
+4. `cad_parts.clevis_pin()` fillets the head-to-pin edge, which adds material under the head, so a pin seated on a plate face reports interference; the pins are set 3 mm off their plates.
+5. `photoreal.py` site scenes have one ground plane at `--ground-z`; a product on a bank above water cannot show the water at z = 0 (O-4 workaround).
+6. `cad_parts` has no polyester, polysteel or nylon density; rope parts use "rope" (1,100 kg/m3), so fidelity masses of ropes read high.
+7. `.kit/options.py` will label `CHOSEN` as "CHOSEN" although the choice is only proposed.
+8. `.kit/drawing.py` `project_views()` raises "No shapes to export" for a rope sketch 1,100 or 1,110 mm long but not 1,111.2 or 1,440 mm (a degenerate ellipse in one view leaves a layer empty); `build_plan_media.py` uses the exact chain length.
+9. `concept_media.py` with the D3 detail wrote a 34.6 MB `model.glb` at the old 1.0 mm deflection; a `--web-only` mode at 3.0 mm and 0.8 rad was added in the repo.
+10. The scratchpad folder and the machine are shared with the other fleet agents; logs were prefixed `bankhaul-`, and only this agent's own jobs were waited on.
+
+### Checks
+
+Run in this order on 2026-10-25, after the last edit to `cad/src/` and `bom/bom.csv`:
+
+- `python3 docs/04-calcs/sizing.py`: runs; `results.csv` written. `python3 docs/04-calcs/stem_check.py`: open, 21 within, 15 plausible, 2 fail with a fix proposed, 0 fail.
+- `python3 .kit/trace.py`: BKH-RTM-001 v0.1 written, 0 gaps (16 PRs, 14 URs).
+- `python3 .kit/cad_check.py --export`: PASS at D3 for A, B and C; 69 per-part STEP files in `cad/step/A/` and three assembly STEPs.
+- `python3 .kit/render.py`: every controlled document rendered to `docs/pdf/` (the stale BKH-REQ-001 PDF removed; both BKH-DDR-003 records render to one file name, O-5).
+- `python3 .kit/render.py --check`: passes, no FAIL and no warnings.
+- `python3 -m reuse lint`: compliant (287 of 287 files); no new annotation needed, `REUSE.toml` covers every file type added.
+- No em or en dashes outside `.kit/` and `LICENSES/`. Largest file in the repo 10.5 MB (`cad/step/bankhaul-assembly.step`), none over 45 MB; `media/model.glb` 3.7 MB after a coarser web tessellation (`concept_media.py --web-only`; the full run gave 34.6 MB).
+- Not run: `python3 .kit/release_gate.py` (release is not part of this rollout).
+
+Not run, as the rollout asks: `.kit/options.py` without `--export`, `photoreal.py`, `export_views.py`, `cards.py`. `media/render-hero.png`, `render-exploded.png`, `render-detail.png`, `card.png` and `social-preview.png` are the renders of 2026-10-04; `media/render-studio.png` (linked from the README) does not exist yet. The coordinator renders `media/options.png` and the four `RENDER_VIEWS` from the new models.
+
+### Recommended next step
+
+Amish decides O-1 and the other open items; the coordinator renders the options picture and the product views. TRL 4 stays on hold under the cap.
+
+
 ## 2026-10-03: Amish's requirement decisions carried out
 
 Amish, 2026-10-03: "i agree with all the 46 recommendations you provided. please proceed." For BankHaul that decides items 14 and 15 as recommended (14A and 15A). Recorded in `docs/decisions/0003-amish-requirement-decisions.md` (BKH-DDR-003) and `docs/06-design-decisions.md` (BKH-DEC-001 v0.2); open decisions are now none.

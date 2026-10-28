@@ -69,26 +69,28 @@ flow = {"title": "work per haul of a 30 m gillnet with a 10 kg catch, kJ (BKH-CA
         "losses": [(0, "Loop round two blocks", 0.55), (0, "Water drag and bed friction", 0.65),
                    (1, "Friction up the bank edge", 0.9)]}
 
+WEB_ONLY = "--web-only" in sys.argv     # rewrite media/model.glb and viewer.html only (kit 1.9.1 size rule)
 if "--exploded-only" in sys.argv:
     _render(compact, ROOT / "media" / "exploded.png", offsets=True, labels=True, title="BankHaul: exploded view",
             note="Seen from the front right and above, 24 deg elevation; far end drawn beside the bank station and "
                  "the loop cut short; numbers match bom/bom.csv")
     sys.exit(0)
 
-outs = render_all(
+outs = {} if WEB_ONLY else render_all(
     parts, project="BankHaul", title="Bank-hauled net loop concept", dwg_no="BKH-DWG-010",
     key_figures=["Span 30 m between blocks (50 m stretch); 12 mm floating loop",
                  "Peak hand pull about 200 N to haul a 30 m net with 10 kg catch",
                  "Weak link releases at 500 to 700 N; far stake load 1.4 kN at most",
                  "Bank station holds 3 kN: two 250 mm screw anchors, factor 2.1",
                  "Fisher works 5 m or more from the water; nobody wades",
-                 "Station parts about USD 394; far stake 5.0 m, 33.2 kg, driven 3.5 m",
+                 "Station parts about USD 399; far stake 5.0 m, 33.2 kg, driven 3.5 m",
                  "Layout shortened to 7 m in these views"],
     scale_figure=False, context=context, cut=False, web_model=False, flow=flow)
 
-_render(compact, ROOT / "media" / "exploded.png", offsets=True, labels=True, title="BankHaul: exploded view",
-        note="Seen from the front right and above, 24 deg elevation; far end drawn beside the bank station and the "
-             "loop cut short; numbers match bom/bom.csv")
+if not WEB_ONLY:
+    _render(compact, ROOT / "media" / "exploded.png", offsets=True, labels=True, title="BankHaul: exploded view",
+            note="Seen from the front right and above, 24 deg elevation; far end drawn beside the bank station and the "
+                 "loop cut short; numbers match bom/bom.csv")
 
 # Web model at a coarse tessellation (a few MB), with the kit's viewer page
 md = ROOT / "media"
@@ -98,7 +100,8 @@ for p in parts:
     sh.color = Color(*mc.to_rgb(p.color))
     sh.label = p.name
     kids.append(sh)
-export_gltf(Compound(kids), str(md / "model.glb"), binary=True, linear_deflection=1.0, angular_deflection=0.35)
+# kit 1.9.1: keep the web model under about 20 MB; the D3 detail (every screw and thread) needs a coarser mesh
+export_gltf(Compound(kids), str(md / "model.glb"), binary=True, linear_deflection=3.0, angular_deflection=0.8)
 (md / "viewer.html").write_text("""<!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <title>BankHaul: bank-hauled net loop concept</title>

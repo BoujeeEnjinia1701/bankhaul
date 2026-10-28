@@ -1,14 +1,22 @@
-"""BankHaul product appearance model (build123d), TRL 3, constructable design (BKH-DDR-002).
+"""BankHaul product appearance model for photoreal renders (STANDARDS sections 12 and 24), TRL 3.
 
-For photoreal renders only (.kit/export_views.py, then .kit/photoreal.py on Amish's Mac). Every
-part is the model.py solid itself, placed in the shortened picture layout of model.py (7 m between
-the blocks); colours and material classes are added for the look. Appearance additions not in
-model.py, recorded in docs/REVIEW.md: the loop cut short a little before the water in the hero and
-exploded views, the far stake shown above the bed only, the screw anchors shown with their rods,
-a net stacked on the table, and a posed 1.75 m mannequin standing beside the post (never between
-the camera and the station). The far stake is 5.0 m long and driven 3.5 m (BKH-DDR-003, decided by
-Amish on 2026-10-03); its driven length is below the bed and out of sight, so the detail view shows
-the paint ring that marks 3.5 m driven, sitting at the bed. CONCEPT, NOT FOR FABRICATION.
+Every product part is components(CHOSEN) from cad/src/model.py as it is, in the 7 m picture layout: the post
+weldment with its welds, jam cleats and every bolt, the near and far blocks, every shackle, thimble, stay,
+turnbuckle and screw anchor, the clearing table with every screw, the far stake with its point, stop pin and
+collar, the two loop halves, the swivel rings and the net bridle. Only the site is added, as context parts: the
+earth bank the station stands on, sloping into the water ("Bank (site)"), a net stacked on the table and a
+1.75 m mannequin standing on the bank beside the post ("(scale)").
+
+Site scenes need the water to show, and .kit/photoreal.py floods its ground plane with still water when
+--water is positive. So the whole model is lifted by LIFT mm: the scene's ground (z = 0) is the lake bed just
+offshore, the still water stands 60 mm above it (--water=60) at the model's water level, and the bank is a
+site part whose top is the model's ground (z = LIFT). This deviation from "ground level at z = 0" is proposed,
+awaiting Amish (BKH-DEC-001 O-4). Studio views put the studio floor at the bank top (--ground-z=LIFT), so the
+spike, anchor rods and helixes below ground are hidden. APPEARANCE MODEL ONLY. CONCEPT, NOT FOR FABRICATION.
+
+Groups: "bank" (bank station and table), "far" (far stake above the bed, collar, pin and far block), "loop" (the
+whole loop, rings and bridle, for the site view), "bankrope" and "farrope" (the ends of the loop and rings cut
+for the studio and detail views), "context".
 
     from product_model import product_parts
     for p in product_parts(): print(p["name"], p["group"], p["material"])
@@ -16,83 +24,104 @@ the paint ring that marks 3.5 m driven, sitting at the bed. CONCEPT, NOT FOR FAB
 import sys
 from pathlib import Path
 
-ROOT = Path(__file__).resolve().parents[2]
-sys.path[:0] = [str(ROOT / ".kit"), str(ROOT / "cad" / "src")]
-from build123d import Pos, Rot  # noqa: E402
-from model import PARAMS as P, build_components, context_shapes, bx, derived, ztube  # noqa: E402
+HERE = Path(__file__).resolve().parent
+sys.path[:0] = [str(HERE), str(HERE.parents[1] / ".kit")]
+
+from build123d import Plane, Polygon, Pos, Rot, extrude  # noqa: E402
+import model as M  # noqa: E402
+from cad_parts import part  # noqa: E402
 
 TITLE = "BankHaul: bank station that sets and hauls a net on a rope loop"
+P = M.PARAMS
 S = P["short"]["span"]
+XW = P["short"]["x_water"]
+ZW = P["z_water"]
+LIFT = 60.0 - ZW            # water level (model z = -500) lands 60 mm above the scene's ground
 
+_SITE = ["--scene=outdoor", "--ground=mud", "--ground-z=0", "--water=60", "--sun=38,-75", "--lens=35"]
+_STUDIO = [f"--ground-z={LIFT:.0f}"]
 RENDER_VIEWS = [
-    {"name": "hero", "groups": ["shell", "context"], "explode": False, "el": 22, "az": -40,
-     "note": "Product render from the front right and above (about 22 deg elevation): bank post with its two "
-             "back-stays and screw anchors, near block and jam cleats, the loop's two legs running toward the "
-             "water, the clearing table with a net, and a 1.75 m person beside the post"},
-    {"name": "exploded", "groups": ["shell"], "explode": True, "el": 26, "az": -50,
-     "note": "Exploded bank station from the front right and above (about 26 deg elevation): post weldment, "
-             "jam cleats, near block and shackle, stay shackles, back-stays, turnbuckles, screw anchors and table"},
-    {"name": "detail", "groups": ["internal"], "explode": False, "el": 18, "az": -35,
-     "note": "Detail of the far end from the front right and above (about 18 deg elevation): stake above the bed "
-             "with its red paint ring at the bed (driven 3.5 m), "
-             "stop pin, swivel collar, shackle and far block, with the loop and ring 2 arriving from the bank"},
+    {"name": "hero", "groups": ["bank", "loop", "far", "context"], "explode": False, "el": 20, "az": -40, "args": _SITE,
+     "note": "Site render from the front right and above (about 20 deg elevation): bank post with its two back-stays and "
+             "screw anchors, near block and jam cleats on the earth bank, the loop's two legs running down the bank and "
+             "out across the water to the far stake and block, the clearing table with a net, and a 1.75 m person "
+             "standing on the bank beside the post; picture layout, 7 m between the blocks"},
+    {"name": "studio", "groups": ["bank", "bankrope"], "explode": False, "el": 24, "az": -50, "args": _STUDIO,
+     "note": "Studio render of the bank station from the front right and above (about 24 deg elevation): post weldment "
+             "with pad eye, stay lugs and cleat bar, near block on its shackle, two jam cleats, back-stays with thimbles, "
+             "shackles and turnbuckles to the screw anchors, the clearing table and the bank ends of the loop"},
+    {"name": "exploded", "groups": ["bank", "bankrope"], "explode": True, "el": 26, "az": -50, "args": _STUDIO,
+     "note": "Exploded bank station from the front right and above (about 26 deg elevation): post weldment, jam cleats "
+             "and bolts, near block and shackle, stay shackles, thimbles, back-stays, turnbuckles, screw anchors and table"},
+    {"name": "detail", "groups": ["far", "farrope"], "explode": False, "el": 18, "az": -35,
+     "note": "Detail of the far end from the front right and above (about 18 deg elevation): stake shown cut 300 mm "
+             "below the water line, stop pin bolt, swivel collar resting on it, shackle and far block, with the loop and "
+             "ring 2 arriving from the bank"},
 ]
 
-LOOK = {  # key: (colour, material class, group, exploded offset)
-    "post": ("#0F766E", "painted", "shell", (0, 0, 0)),
-    "cleats": ("#1D4ED8", "plastic", "shell", (0, 0, 350)),
-    "near_block": ("#D4A017", "metal", "shell", (550, 0, 350)),
-    "near_shackle": ("#9CA3AF", "metal", "shell", (300, 0, 350)),
-    "stay_shackles": ("#9CA3AF", "metal", "shell", (-250, 0, 300)),
-    "stays": ("#F97316", "fabric", "shell", (-450, 0, 200)),
-    "turnbuckles": ("#6B7280", "metal", "shell", (-650, 0, 100)),
-    "anchors": ("#374151", "metal", "shell", (-850, 0, 0)),
-    "table": ("#A16207", "wood", "shell", (0, 700, 0)),
-    "loop": ("#E11D48", "fabric", "shell", (0, -500, 0)),
-    "rings": ("#9CA3AF", "metal", "shell", (0, -700, 250)),
-    "bridle": ("#15803D", "fabric", "shell", (0, -700, -150)),
-    "stake": ("#475569", "painted", "internal", (0, 0, 0)),
-    "pin": ("#9CA3AF", "metal", "internal", (0, 0, 0)),
-    "collar": ("#0E7490", "painted", "internal", (0, 0, 0)),
-    "far_shackle": ("#9CA3AF", "metal", "internal", (0, 0, 0)),
-    "far_block": ("#D4A017", "metal", "internal", (0, 0, 0)),
-}
+EXPLODE = {"post": (0, 0, 0), "cleats": (0, 0, 350), "near_block": (550, 0, 350), "near_shackle": (300, 0, 350),
+           "stay_shackles": (-250, 0, 300), "stays": (-450, 0, 200), "turnbuckles": (-650, 0, 100),
+           "anchors": (-850, 0, 0), "table": (0, 700, 0), "loop": (0, -500, 0), "rings": (0, -700, 250),
+           "bridle": (0, -700, -150)}
+FAR = ("stake", "pin", "collar", "far_shackle", "far_block")
+
+
+def _bank_site():
+    """Earth bank: flat to the water's edge, then sloping into the water; reaches below the scene's ground."""
+    top = LIFT
+    pts = [(-3200, top), (XW, top), (XW + 450, -80), (-3200, -80)]
+    prof = Plane.XZ * Polygon(*[(x, z) for x, z in pts], align=None)
+    slab = extrude(prof, 2600, both=True)
+    return slab
 
 
 def product_parts(P=P):
-    C = build_components(P, short=True)
-    X = context_shapes(P, short=True)
+    L = Pos(0, 0, LIFT)
     out = []
 
-    def add(name, shape, color, material, bom, group, explode):
-        out.append({"name": name, "shape": shape, "color": color, "material": material,
-                    "bom": bom, "group": group, "explode": tuple(float(v) for v in explode)})
+    def add(p, group, explode=(0, 0, 0), shape=None, name=None):
+        q = dict(p)
+        q["shape"] = L * (shape if shape is not None else p["shape"])
+        q["group"] = group
+        q["explode"] = tuple(float(v) for v in explode)
+        if name:
+            q["name"] = name
+        out.append(q)
 
-    for k, c in C.items():
-        color, mat, grp, ex = LOOK[k]
-        shape = c.shape
-        if k in ("loop", "rings"):
-            add(c.name + " (bank end)", shape & bx(-600, 2600, -400, 400, -100, 1200), color, mat, c.bom, "shell", ex)
-            add(c.name + " (far end)", shape & bx(S - 1600, S + 400, -400, 400, -700, 200), color, mat, c.bom,
-                "internal", (0, 0, 0))
-            continue
-        if k == "stake":
-            shape = shape & bx(S - 300, S + 300, -300, 300, -1500, 200)
-            zb = derived(P)["z_bed"]
-            ro = P["stake"][0] / 2
-            ring = Pos(S, 0, 0) * ztube(0, 0, ro + 0.6, ro - 0.5, zb, zb + 60)
-            add(c.name, shape - ring, color, mat, c.bom, grp, ex)
-            add("Driving paint ring (marks 3.5 m driven)", ring, "#DC2626", "painted", c.bom, grp, ex)
-            continue
-        add(c.name, shape, color, mat, c.bom, grp, ex)
-    add("Net stacked on the table (site)", X["net"], "#57534E", "fabric", None, "context", (0, 0, 0))
+    for p in M.components(M.CHOSEN):
+        k = p["key"]
+        if k in FAR:
+            shp = p["shape"]
+            if k == "stake":
+                shp = shp & M.bx(S - 300, S + 300, -300, 300, ZW - 300, 200)
+                if shp is None or not shp.solids() or shp.volume < 1:
+                    continue
+            add(p, "far", shape=shp)
+        elif k in ("loop", "rings"):
+            bank = p["shape"] & M.bx(-600, 2600, -400, 400, -100, 1200)
+            if bank is not None and bank.volume > 1:
+                add(p, "bankrope", EXPLODE[k], shape=bank, name=p["name"] + " (bank end)")
+            far = p["shape"] & M.bx(S - 1600, S + 400, -400, 400, ZW - 300, 200)
+            if far is not None and far.volume > 1:
+                add(p, "farrope", shape=far, name=p["name"] + " (far end)")
+            add(p, "loop")
+        elif k == "bridle":
+            add(p, "loop", EXPLODE[k])
+        else:
+            add(p, "bank", EXPLODE.get(k, (0, 0, 0)))
+    X = M.context_shapes(P, short=True)
+    out.append(part("Net stacked on the table (site)", L * X["net"], "coir_net", kind="context", group="context"))
+    out.append(part("Bank (site)", _bank_site(), "soil", kind="context", group="context"))
     from context_parts import mannequin
-    person = Pos(-750.0, -950.0, 0) * Rot(0, 0, 90) * mannequin(1750, "stand")
-    add("Person, 1.75 m (scale)", person, "#D1D5DB", "clay", None, "context", (0, 0, 0))
+    person = Pos(-750.0, -950.0, LIFT) * Rot(0, 0, 90) * mannequin(1750, "stand")
+    out.append(part("Person, 1.75 m (scale)", person, "skin", kind="context", group="context"))
+    for q in out:
+        q.setdefault("explode", (0.0, 0.0, 0.0))
     return out
 
 
 if __name__ == "__main__":
-    for p in product_parts():
-        s = p["shape"]
-        print(f"{p['name']:44s} {p['group']:9s} {p['material']:9s} vol={s.volume / 1000:9.1f} cm3")
+    ps = product_parts()
+    for p in ps:
+        print(f"{p['name'][:60]:60s} {p['group']:8s} {p['material']:12s}")
+    print(len(ps), "parts")

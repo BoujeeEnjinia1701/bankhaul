@@ -3,9 +3,9 @@ doc_id: BKH-PRB-001
 title: BankHaul problem statement
 project: BankHaul
 doc_type: Problem statement
-version: "0.2"
+version: "0.3"
 status: Draft
-date: '2026-10-03'
+date: '2026-10-25'
 author: Amish Chadha
 license: CERN-OHL-S-2.0
 revisions:
@@ -17,6 +17,10 @@ revisions:
   date: '2026-10-03'
   author: Amish Chadha
   change: TRL 2 update; first co-design candidate, safety note, open questions routed to the decisions register
+- version: "0.3"
+  date: '2026-10-25'
+  author: Amish Chadha
+  change: "Kit 1.8: users-and-needs and stakeholders tables (Tables 2 and 3), the sources of the user requirements in BKH-URS-001"
 ---
 
 # BankHaul problem statement
@@ -37,6 +41,29 @@ The main engineered answer so far is the crocodile exclusion enclosure, a fenced
 | Fisher associations and village committees | A shared set of stations at known hotspots | Landing sites and fishing camps |
 | Wildlife authorities | A mitigation measure they can promote alongside patrols and closures | Human-wildlife conflict programmes |
 | NGOs and livelihood programmes | A low-cost, locally made kit | Households in conflict hotspots |
+
+### Users and needs
+
+Table 2. Users and needs (the source of the user requirements in BKH-URS-001).
+
+| User type | Goals and needs | Typical use scenario | Pain points and challenges |
+| --- | --- | --- | --- |
+| Subsistence and small-scale fisher | Set and haul their own gillnet without wading; enough catch for the household; a pull one person can manage | Sets a 20 to 30 m gillnet at dusk from the bank, hauls at dawn, clears fish on the bank | Wading at night and dawn is when attacks happen; no money for a boat; nets snag and tear |
+| Fisher association or village committee | A shared, durable station at a known hotspot that members can maintain | Builds and keeps stations at a landing site; agrees who uses them and when | Cash for parts; theft of metal parts; siting on banks that move with the season |
+| Station builder (local welder, carpenter, rope worker) | Parts that can be cut, drilled, welded, sawn and spliced with local tools | Builds one station from the drawings and build plan in a few days | Unknown steel grades; no rated rigging nearby; no test rig |
+| Boat crew placing the far stake | A stake two people can lift and drive from a boat in one trip | Places or moves the far stake once a season at low water or from a moored boat | The most exposed job in the system; soft bed; no lifting gear |
+
+### Stakeholders
+
+Table 3. Stakeholders.
+
+| Stakeholder group | Role or interest | Engagement needed |
+| --- | --- | --- |
+| Wildlife authority (for example Zimbabwe Parks and Wildlife Management Authority, Uganda Wildlife Authority) | Human-wildlife conflict mitigation; crocodile management; safety advice at the site | Agree siting, safety briefing and any permit (PR-016) |
+| Fisheries authority | Fishing licences, gear and mesh rules, closed zones and seasons | Confirm that loop-set gillnets are allowed where stations are sited (BKH-REG-001) |
+| Human-wildlife conflict researchers (for example the Lake Kariba group of the Oryx study) | Attack data by place, time and activity; trial design | Co-design partner candidate (BKH-DDR-001, item 10); site selection |
+| NGOs and livelihood programmes | Funding and distribution of low-cost kits | Costing of the local-materials station (PR-008) |
+| Other water users (boats, other fishers) | Navigation past a floating line | Marking of the loop and the far stake |
 
 ## Operating environment
 

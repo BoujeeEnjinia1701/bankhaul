@@ -20,7 +20,8 @@ from model import PARAMS as P, build_components, derived  # noqa: E402
 DATE = "2026-10-03"
 REVS = [("P1", "Preliminary GA for TRL 3 (from cad/src/model.py)", DATE, "AC"),
         ("P2", "BKH-DDR-002: design for construction", DATE, "AC"),
-        ("P3", "BKH-DDR-003: far stake 5.0 m long, driven 3.5 m (decision 14A)", DATE, "AC")]
+        ("P3", "BKH-DDR-003: far stake 5.0 m long, driven 3.5 m (decision 14A)", DATE, "AC"),
+        ("P4", "Kit 1.9 D3 model; D-S1 pad eye 64 radial; D-S3 stays 1,110 between thimbles", "2026-10-25", "AC")]
 
 
 def safe_project_views(part, workdir, line_weight=0.35):
@@ -55,7 +56,7 @@ def bank_sheet(C, D):
     keys = ["post", "cleats", "near_block", "near_shackle", "stay_shackles", "stays", "turnbuckles", "anchors"]
     work = ROOT / "cad" / "drawings" / "_views1"
     views = safe_project_views(Compound([C[k].shape for k in keys]), work)
-    s = Sheet(project="BankHaul", title="Bank station: general arrangement", dwg_no="BKH-DWG-001", rev="P3",
+    s = Sheet(project="BankHaul", title="Bank station: general arrangement", dwg_no="BKH-DWG-001", rev="P4",
               author="Amish Chadha", date=DATE, scale=None, theme="technical",
               material="Steel weldment, bought blocks, anchors and rigging per bom/bom.csv. PRELIMINARY, NOT FOR FABRICATION",
               revisions=REVS)
@@ -64,10 +65,10 @@ def bank_sheet(C, D):
     s.add_notes("Main dimensions and interfaces (mm)", [
         "Post 48.3 x 3.2 tube, head 1,000 above the ground; weldment 17.2 kg (1)",
         "Foot plate 350 x 350 x 8; ground spike 20 round, 400 below the plate",
-        f"Pad eye 18 hole {P['eye_r']:.0f} from the post axis, {P['z_block']:.0f} up; near block on a shackle (8, 13)",
+        f"Pad eye 8 plate {P['pad_eye'][0]:.0f} radial, 18 hole {P['eye_r']:.0f} from the axis, {P['z_block']:.0f} up (8, 13)",
         f"Near sheave centre {D['x_near']:.0f} in front of the post; legs {2 * D['r_pitch']:.0f} apart",
         f"Two stay lugs, 15 holes, {D['z_lug']:.0f} up, splayed {D['stay_plan_deg']:.1f} deg either side of the line",
-        "Back-stays 10 rope with M12 turnbuckles to the anchor eyes (5, 12)",
+        f"Back-stays 10 rope, {D['stay_eyes']:,.0f} between thimbles; M12 turnbuckles to the anchors (5, 12)",
         f"Anchor eyes 1,100 behind and 450 either side; rods in line with the stays (11)",
         "Cleat bar 130 x 500 x 8 slipped over the post, top 850 up; jam cleats 200 either side (10)",
         "Tie-off hole 15 dia in the cleat bar for the net's near end",
@@ -84,7 +85,7 @@ def far_sheet(C, D):
     shape = Compound([Pos(-P["span"], 0, 0) * C[k].shape for k in keys])
     views = safe_project_views(shape, work)
     s = Sheet(project="BankHaul", title="Far end: stake, swivel collar and far block, general arrangement",
-              dwg_no="BKH-DWG-002", rev="P3", author="Amish Chadha", date=DATE, scale=None, theme="technical",
+              dwg_no="BKH-DWG-002", rev="P4", author="Amish Chadha", date=DATE, scale=None, theme="technical",
               material="Steel tube S355 per bom/bom.csv; bought block and shackle. PRELIMINARY, NOT FOR FABRICATION",
               revisions=REVS)
     s.add_ortho(views)
@@ -109,7 +110,7 @@ def far_sheet(C, D):
 def layout_sheet(C, D):
     work = ROOT / "cad" / "drawings" / "_views3"
     views = safe_project_views(Compound([C[k].shape for k in C if k not in ("anchors",)]), work, line_weight=0.25)
-    s = Sheet(project="BankHaul", title="Net-hauling station: layout (span shortened)", dwg_no="BKH-DWG-003", rev="P3",
+    s = Sheet(project="BankHaul", title="Net-hauling station: layout (span shortened)", dwg_no="BKH-DWG-003", rev="P4",
               author="Amish Chadha", date=DATE, scale=None, theme="technical",
               material="Layout only; parts per BKH-DWG-001, 002 and 101 to 107. PRELIMINARY, NOT FOR FABRICATION",
               revisions=REVS)
