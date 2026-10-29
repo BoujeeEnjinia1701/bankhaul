@@ -34,7 +34,6 @@ from __future__ import annotations
 
 import math
 import sys
-from dataclasses import dataclass
 from functools import lru_cache
 from pathlib import Path
 
@@ -941,13 +940,17 @@ def components(option, short=True):
 
 
 # ----------------------------------------------------------------------------- legacy interface (option A)
-@dataclass
 class Comp:
-    name: str
-    shape: object
-    bom: int
-    group: str          # bank, far, table, loop, net
-    material: str
+    """A legacy component. A plain class, not a dataclass: the kit loads this file by path without registering it in
+    sys.modules, and a dataclass with string annotations (from __future__ import annotations) looks its module up
+    there, so it failed to load for the options picture."""
+    __slots__ = ("name", "shape", "bom", "group", "material")   # group: bank, far, table, loop, net
+
+    def __init__(self, name, shape, bom, group, material):
+        self.name, self.shape, self.bom, self.group, self.material = name, shape, bom, group, material
+
+    def __repr__(self):
+        return f"Comp(name={self.name!r}, bom={self.bom!r}, group={self.group!r}, material={self.material!r})"
 
 
 BOM = {  # key: (BOM line, plain name)
